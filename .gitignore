@@ -1,0 +1,6 @@
+
+# sqlite database file
+*.sqlite3
+
+# python binanry caching files
+src/**/*.pyc
