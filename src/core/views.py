@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, mixins, permissions, viewsets
+from rest_framework import views
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -24,7 +25,6 @@ class Users(viewsets.ModelViewSet):
         permissions.IsAdminUser
     ]
 
-
 class CustomAuthToken(ObtainAuthToken):   
     # return more info when getting user token
     def post(self, request, *args, **kwargs):
@@ -46,3 +46,6 @@ class CustomAuthToken(ObtainAuthToken):
             'role'      : user.role
         })
 
+class Root(views.APIView):
+    def get(self, *args, **kwargs):
+        return Response({"data": "Working"}, status=200)
