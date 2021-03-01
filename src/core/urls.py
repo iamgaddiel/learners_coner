@@ -20,7 +20,7 @@ urlpatterns = [
     # dj-rest-auth
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    
+    path('lecture/', include('lecture.urls')),
 ]
 
 urlpatterns += router.urls

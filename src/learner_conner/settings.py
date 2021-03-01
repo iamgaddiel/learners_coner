@@ -14,7 +14,7 @@ SECRET_KEY = 'r=0m^^*17u)q@-*y3dh45v!wy0sqtbz!3ipzc^uq-!-au8j(*&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,10 +44,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
 
+    'ckeditor', #CKEditor
+
     # Apps
     'core',
     '_class',
     'backend',
+    'lecture',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Custom User model
 AUTH_USER_MODEL = 'core.CustomUser'

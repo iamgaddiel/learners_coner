@@ -10,8 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields: list = [
             'username',
-            'first_name',
-            'last_name', 
+            'fullname',
             'phone', 
             'country',
             'level',
@@ -33,8 +32,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
         # overide create method to hash user password 
         password = validated_data.pop("password")
+        phone = validated_data.get('phone')
         user = CustomUser(**validated_data)
         user.set_password(password)
+        user.referral_code = f'https://learners-corner.netlify.app/signup?ref_code{phone}'
 
         referral_code = validated_data.get('referral')
         if referral_code != '':

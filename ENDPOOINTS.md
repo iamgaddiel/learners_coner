@@ -1,10 +1,30 @@
 +++++++ API ENDPOINTS 
 
++++++++ AUTH ENDPOINTS 
+
+BASE URL => https://learnersconer.pythonanywhere.com/api
+
 • /dj-rest-auth/login/ (POST)
     – username
     – email
     – password
     Returns Token key
+
+• /user/login/ (POST)
+    – username
+    – email
+    – password
+    Returns => token, user_id,username, full_name, phone, country, level, email, role
+
+• /user/register/ (POST)
+    – fullname
+    – email
+    – phone
+    – role | teacher or student
+    – country
+    – level
+    – referral_code
+    – syllable
 
 • /dj-rest-auth/logout/ (POST)
 
@@ -52,3 +72,5 @@
     token is valid. HTTP 401 Unauthorized with {"detail": "Token is invalid or
     expired", "code": "token_not_valid"} in case of a invalid or expired token.
 
++++++++ LECTURE ENDPOINTS 
+BASE URL => api/lecture/
