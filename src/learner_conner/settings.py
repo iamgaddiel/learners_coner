@@ -46,6 +46,9 @@ INSTALLED_APPS = [
 
     'ckeditor', #CKEditor
 
+    # CORS-HEADERS
+    'corsheaders',
+
     # Apps
     'core',
     'classroom',
@@ -61,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #CORSHEADERS
 ]
 
 ROOT_URLCONF = 'learner_conner.urls'
@@ -157,3 +161,6 @@ REST_FRAMEWORK = {
 SITE_ID = 1
 
 ACCOUNT_LOGOUT_ON_GET = True
+
+# CORS-HEADERS
+CORS_ORIGIN_ALLOW_ALL = True
