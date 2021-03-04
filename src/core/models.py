@@ -1,5 +1,5 @@
 from django.db import models
-from _class.models import Class
+from classroom.models import Class
 from django.contrib.auth.models import AbstractUser, User
 
 # Create your models here.

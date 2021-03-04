@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from _class.views import SubjectViewSet, ClassViewSet
+from classroom.views import SubjectViewSet, ClassViewSet
 
 router = DefaultRouter(trailing_slash=True)
 router.register('subjects', SubjectViewSet, 'subjects')

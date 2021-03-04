@@ -26,7 +26,7 @@ BASE URL => https://learnersconer.pythonanywhere.com/api
     – referral_code
     – syllable
 
-• /dj-rest-auth/logout/ (POST)
+• /dj-rest-auth/logout/ (POST) (GET)
 
 • /dj-rest-auth/password/reset/ (POST)
     – email

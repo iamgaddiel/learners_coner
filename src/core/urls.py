@@ -11,7 +11,7 @@ router = DefaultRouter()
 urlpatterns = [
     path('user/register/', UserRegistration.as_view(), name='user_registration'),
     path('user/login/', CustomAuthToken.as_view(), name='auth-login'),
-    path('classroom/', include('_class.urls')),
+    path('classroom/', include('classroom.urls')),
     path('', Root.as_view(), name="root"),
 
     # drf

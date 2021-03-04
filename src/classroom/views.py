@@ -3,8 +3,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions
 
 # custom import
-from _class.models import Subject, Class
-from _class.serializer import ClassSerializer, SubjectSerializer
+from .models import Subject, Class
+from .serializer import ClassSerializer, SubjectSerializer
 
 
 class SubjectViewSet(ModelViewSet):

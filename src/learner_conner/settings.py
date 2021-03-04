@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 
     # Apps
     'core',
-    '_class',
+    'classroom',
     'backend',
     'lecture',
 ]
@@ -156,3 +156,4 @@ REST_FRAMEWORK = {
 # dj-rest-auth
 SITE_ID = 1
 
+ACCOUNT_LOGOUT_ON_GET = True

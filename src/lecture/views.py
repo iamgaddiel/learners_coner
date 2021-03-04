@@ -11,9 +11,13 @@ class LectureTest(views.APIView):
         return Response({"data": "lectures working"})
 
 class LectureView(viewsets.ModelViewSet):
-    queryset = Lecture
-    serializer_class = Serializer
+    queryset = Lecture.objects.all()
+    serializer_class = LectureSerializer()
     permission_classes = [
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+
+class StudentLecture(views.APIView):
+    pass
+

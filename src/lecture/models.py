@@ -1,14 +1,16 @@
 from django.db import models
-from _class.models import Class
+from classroom.models import Class, Subject
 from ckeditor.fields import RichTextField
 
 
 class Lecture(models.Model):
-    title = models.CharField(max_length=30, unique=True)
+    title = models.CharField(max_length=70, unique=True, default='')
     note = RichTextField(blank=True, null=True)
     level = models.ForeignKey(Class, on_delete=models.CASCADE)
-    week = models.CharField(max_length=2, help_text="lecture week")
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, default='')
+    term = models.IntegerField(default=1)
+    week = models.PositiveIntegerField(help_text="lecture week")
     timestamp = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
-        return self.title
+        return r'{self.title} week {week}'
