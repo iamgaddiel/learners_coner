@@ -35,17 +35,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         phone = validated_data.get('phone')
         user = CustomUser(**validated_data)
         user.set_password(password)
-        user.referral_code = f'https://learners-corner.netlify.app/signup?ref_code{phone}'
 
-        referral_code = validated_data.get('referral')
+        referral_code = validated_data.get('referral_code')
         if referral_code != '':
-            referral_qs = Profile.objects.filter(referral_code=referral_code)
+            referral_qs = Profile.objects.filter(personal_referral_code=referral_code)
             if not referral_qs.exists():
                 raise serializers.ValidationError("Referral Code doesn't exists")
         user.save()
 
         user_profile = Profile(user=user)
-        user_profile.personal_referral_code = validated_data.get('phone')
+        user.personal_referral_code = f'https://learners-corner.netlify.app/signup?ref_code{phone}'
         user_profile.save()
         return user
 

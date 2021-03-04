@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
     role: str = models.CharField(max_length=10, choices=ROLE)
     country: str = models.CharField(max_length=25)
     # level: str = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
-    level: str = models.CharField(max_length=10, default='')
+    level: str = models.CharField(max_length=4, default='')
     referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="")
     timestamp: str = models.DateTimeField(auto_now_add=True)
     syllable: str = models.CharField(max_length=25, choices=SYLLABLE, default='')
