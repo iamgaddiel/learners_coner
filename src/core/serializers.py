@@ -9,7 +9,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields: list = [
-            'username',
+            # 'username',
             'fullname',
             'phone', 
             'country',
@@ -33,8 +33,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         # overide create method to hash user password 
         password = validated_data.pop("password")
         phone = validated_data.get('phone')
+        fullname = validated_data.get('fullname')
         user = CustomUser(**validated_data)
         user.set_password(password)
+        user.username = f'{fullname}-{phone}'
 
         referral_code = validated_data.get('referral_code')
         if referral_code != '':
