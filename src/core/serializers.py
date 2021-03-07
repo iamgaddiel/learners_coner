@@ -39,7 +39,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.username = f'{fullname}-{phone}'
 
         referral_code = validated_data.get('referral_code')
-        if referral_code != '':
+        if referral_code is not None:
             referral_qs = Profile.objects.filter(personal_referral_code=referral_code)
             if not referral_qs.exists():
                 raise serializers.ValidationError("Referral Code doesn't exists")
