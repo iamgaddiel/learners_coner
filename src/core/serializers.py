@@ -46,7 +46,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.save()
 
         user_profile = Profile(user=user)
-        user.personal_referral_code = f'https://learners-corner.netlify.app/signup?ref_code{phone}'
+        user_profile.personal_referral_code = f'https://learners-corner.netlify.app/signup?ref_code{phone}'
         user_profile.save()
         return user
 
