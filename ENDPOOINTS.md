@@ -73,4 +73,8 @@ BASE URL => https://learnersconer.pythonanywhere.com/api
     expired", "code": "token_not_valid"} in case of a invalid or expired token.
 
 +++++++ LECTURE ENDPOINTS 
-BASE URL => api/lecture/
+
+• user/detail/{level}/{subject}/{term:int}/ (GET)
+    – Header
+    {Authorization: Token <user token key>}
+    Returns level, subject, term, week, title, term

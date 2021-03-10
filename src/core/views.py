@@ -48,3 +48,4 @@ class CustomAuthToken(ObtainAuthToken):
 class Root(views.APIView):
     def get(self, *args, **kwargs):
         return Response({"data": "Working"}, status=200)
+

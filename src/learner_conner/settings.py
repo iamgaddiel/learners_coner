@@ -54,6 +54,16 @@ INSTALLED_APPS = [
     'classroom',
     'backend',
     'lecture',
+    'chat',
+    'comment',
+    'mock_test',
+    'news',
+    'note',
+    'podcast',
+    'referral',
+    'school',
+    'subscription',
+    'task'
 ]
 
 MIDDLEWARE = [
@@ -164,3 +174,6 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 # CORS-HEADERS
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+# Email Config
