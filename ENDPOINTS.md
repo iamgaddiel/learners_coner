@@ -14,8 +14,7 @@ BASE URL => https://learnersconer.pythonanywhere.com/api
     Returns Token key
 
 • /user/login/ (POST)
-    – username
-    – email
+    – phone
     – password
     Returns => token, user_id,username, full_name, phone, country, level, email, role
 
