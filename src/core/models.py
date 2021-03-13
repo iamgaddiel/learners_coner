@@ -1,6 +1,7 @@
 from django.db import models
 from classroom.models import Class
 from django.contrib.auth.models import AbstractUser, User
+from .manager import CustomUserManger
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -21,10 +22,15 @@ class CustomUser(AbstractUser):
     country: str = models.CharField(max_length=25)
     # level: str = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
     level: str = models.CharField(max_length=4, default='')
-    referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="")
+    referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="", null=True)
     timestamp: str = models.DateTimeField(auto_now_add=True)
     syllable: str = models.CharField(max_length=25, choices=SYLLABLE, default='')
 
+    USERNAME_FIELD = 'phone'
+    REQUIRED_FIELDS = ['username']
+
+    objects = CustomUserManger()
+    
     def __str__(self) -> str:
         return f'{self.username}'
 
@@ -42,4 +48,3 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user.fullname}'s profile"
-

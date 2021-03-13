@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'mock_test',
     'news',
     'note',
-    'podcast',
+    # 'podcast',
     'referral',
     'school',
     'subscription',
@@ -162,18 +162,35 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':  [
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
-    ]
+        # 'rest_framework.authentication.SessionAuthentication',
+    ],
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework.parsers.JSONParser',
+    #     # 'rest_framework.parsers.MultiPartParser'
+    #     # 'rest_framework.parsers.FileUploadParser'
+    # ]
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # dj-rest-auth
 SITE_ID = 1
 
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_PASSWORD_REQUIRED = False
 
 # CORS-HEADERS
 CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Email Config
+
+

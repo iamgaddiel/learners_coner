@@ -1,3 +1,13 @@
 from django.shortcuts import render
+from rest_framework import permissions, authentication, viewsets
+from .models import News
+from .serializer import NewsSerializer
 
-# Create your views here.
+
+class NewsViewSet(viewsets.ModelViewSet):
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+    queryset = News.objects.all()
+
+
