@@ -7,6 +7,6 @@ Tasks
 Mock Tests
 Virtual Tour
 Podcasts
-Citizens Corner
 News
 
+=> update lecture model to accept pdf files as content

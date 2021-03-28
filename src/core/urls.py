@@ -22,7 +22,8 @@ urlpatterns = [
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('lecture/', include('lecture.urls')),
-    path('news/', include('news.urls'))
+    path('news/', include('news.urls')),
+    path('note/', include('note.urls'))
     # path('podcast/', include('podcast.urls')),
 ]
 

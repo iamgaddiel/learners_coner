@@ -5,3 +5,5 @@
 # python binanry caching files
 src/**/*.pyc
 .env
+.TODO.md
+/db.sqlite3

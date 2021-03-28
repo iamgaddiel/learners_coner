@@ -26,7 +26,7 @@ class CustomUser(AbstractUser):
     timestamp: str = models.DateTimeField(auto_now_add=True)
     syllable: str = models.CharField(max_length=25, choices=SYLLABLE, default='')
 
-    USERNAME_FIELD = 'phone'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManger()

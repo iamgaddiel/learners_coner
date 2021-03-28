@@ -129,20 +129,52 @@ Note: The endpoints are for students
     – link
 
 
-+++++++++++++++++++++++++++++++++  VIDEOS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
-• video/admin/ (GET)
-    Returns all video 
++++++++++++++++++++++++++++++++++  NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+------(ADMIN)
+• note/ (GET)
+    Returns all note 
 
-• video/admin/ (POST)
+• note/ (POST)
     – title
-    – link
+    – content
+    – owner => userId
 
-• video/admin/{id} (GET, DELETE)
-    Returns a single instance of a video
+• note/{id} (GET, DELETE)
+    Returns a single instance of a note
 
-• video/admin/{id} (PUT, PATCH)
+• note/{id} (PUT, PATCH)
     – title
-    – link
+    – content
+
+• note/{id} (PUT, PATCH)
+    – title
+    – content
+
+------(USER)
+• note/user/{userId}/ (GET)
+    – Header {Authorization: <Token userToken>}
+    Returns all student note 
+
+• note/user/ (POST)
+    – Header {Authorization: <Token userToken>}
+    – title
+    – content
+    – owner | userId
+
+• note/{id}/{user} (GET, DELETE)
+    – Header {Authorization: <Token userToken>}
+    Returns a single instance of a user note
+
+• note/{id} (PUT, PATCH)
+    – Header {Authorization: <Token userToken>}
+    – title
+    – content
+
+• note/user/{id} (PUT, PATCH)
+    – Header {Authorization: <Token userToken>}
+    – title
+    – content
+
 
 
 +++++++++++++++++++++++++++++++++  VIDEOS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
