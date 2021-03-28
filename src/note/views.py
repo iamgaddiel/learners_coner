@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from core.models import CustomUser
 from .models import Note
-from .serializer import NoteSerializer, StudentNoteSerializer, StudentNoteSerializere
+from .serializer import NoteSerializer, StudentNoteSerializer
 
 
 class NoteViewSet(viewsets.ModelViewSet):
