@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'referral',
     'school',
     'subscription',
-    'task'
+    'task',
+    'video'
 ]
 
 MIDDLEWARE = [
@@ -176,7 +177,6 @@ AUTHENTICATION_BACKENDS = [
     # 'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # dj-rest-auth
@@ -192,5 +192,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Email Config
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_ARDD')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PSWD')
 
 
