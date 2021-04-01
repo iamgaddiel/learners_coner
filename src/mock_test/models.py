@@ -18,6 +18,7 @@ class MockTest(models.Model):
 
 class MockTestQuestion(models.Model):
     mock_test = models.ForeignKey(MockTest, on_delete=models.CASCADE)
+    correct_answer = models.Ca
 
     def __str__(self) -> str:
         return super().__str__()
