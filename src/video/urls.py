@@ -6,7 +6,7 @@ from .views import VideoViewSet
 
 
 router = DefaultRouter()
-router.register('', ViewSet)
+router.register('', VideoViewSet)
 
 urlpatterns = []
 urlpatterns += router.urls

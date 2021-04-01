@@ -64,7 +64,9 @@ INSTALLED_APPS = [
     'school',
     'subscription',
     'task',
-    'video'
+    'video',
+    # Email verification
+    "verify_email",
 ]
 
 MIDDLEWARE = [
@@ -151,6 +153,8 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATICFILES_DIR = [os.path.join(BASE_DIR, 'static')]
+
 # Custom User model
 AUTH_USER_MODEL = 'core.CustomUser'
 
@@ -163,6 +167,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':  [
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ],
     # 'DEFAULT_PARSER_CLASSES': [
@@ -177,8 +182,6 @@ AUTHENTICATION_BACKENDS = [
     # 'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-
-
 # dj-rest-auth
 SITE_ID = 1
 
@@ -192,11 +195,17 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Email Config
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_ARDD')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PSWD')
+EMAIL_TIMEOUT = 60 * 60
 
-
+if DEBUG:
+    # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST_USER = os.environ.get('DEBUG_EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('DEBUG_EMAIL_HOST_PASSWORD')
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST_USER = 'ighotagaddiel@gmail.com'
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
