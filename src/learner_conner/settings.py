@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'task',
     'video',
     # Email verification
-    "verify_email",
+    # "verify_email",
 ]
 
 MIDDLEWARE = [
