@@ -23,9 +23,12 @@ class LectureViewSet(viewsets.ModelViewSet):
     queryset = Lecture.objects.all()
     serializer_class = LectureSerializer
     permission_classes = [
-        permissions.IsAuthenticated,
-        permissions.IsAdminUser
+        # permissions.IsAuthenticated,
+        # permissions.IsAdminUser
     ]
+
+    def pre_save(self, obj):
+        obj.note = self.request.FILES.get('file')
 
 class StudentLecture(views.APIView):
 
