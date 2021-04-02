@@ -15,4 +15,4 @@ class Lecture(models.Model):
     timestamp = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
-        return f'{self.title} week {self.week}'
+        return f'{self.title} | {self.level} | term {self.term}'
