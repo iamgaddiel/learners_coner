@@ -6,3 +6,5 @@ class News(models.Model):
     source: str = models.CharField(max_length=50)
     link: str = models.CharField(max_length=50)
 
+    def __str__(self) -> str:
+        return self.title

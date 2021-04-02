@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import permissions, authentication, viewsets
+from rest_framework import permissions, viewsets
 from .models import News
 from .serializer import NewsSerializer
 
