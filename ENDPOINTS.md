@@ -297,3 +297,36 @@ Returns a single instance of a subscriptions
 – payment_type 
 – flw_ref
 – tx_ref
+
+
++++++++++++++++++++++++++++++++++ MOCK TEST ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+• mock/mocktest/ (GET)
+– Header {Authorization: <Token adminToken>}
+Returns all Volunteers
+
+• volunteer/admin/ (POST)
+– Header {Authorization: <Token adminToken>}
+– first_name
+– last_name
+– email
+– phone_number
+– gender
+– title
+– state
+– country
+– age
+– degree
+– other_degree
+– work_mode
+– skillsets
+– learn_about_us
+
+• volunteer/admin/{id} (GET, DELETE)
+– Header {Authorization: <Token adminToken>}
+Returns a single instance of a Volunteer
+
+• volunteer/admin/{id} (PUT, PATCH)
+– Header {Authorization: <Token adminToken>}
+– subject
+– term 
+– level
