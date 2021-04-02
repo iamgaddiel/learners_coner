@@ -31,7 +31,10 @@ urlpatterns = [
     path('lecture/', include('lecture.urls')),
     path('news/', include('news.urls')),
     path('note/', include('note.urls')),
-    path('mock/', include('mock_test.urls'))
+    path('mock/', include('mock_test.urls')),
+    path('video/', include('video')),
+    path('volunteers/', include('volunteers')),
+    path('')
     # path('email/verification/', include('email_verification'))
     # path('podcast/', include('podcast.urls')),
 ]
