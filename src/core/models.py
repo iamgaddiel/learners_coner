@@ -25,6 +25,7 @@ class CustomUser(AbstractUser):
     referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="", null=True)
     timestamp: str = models.DateTimeField(auto_now_add=True)
     is_verified: bool = models.BooleanField(default=False)
+    is_subscribed: bool = models.BooleanField(default=False)
     syllable: str = models.CharField(max_length=25, choices=SYLLABLE, default='')
 
     USERNAME_FIELD = 'email'
