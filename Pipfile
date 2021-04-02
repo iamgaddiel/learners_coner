@@ -13,6 +13,9 @@ psycopg2 = "*"
 djoser = "*"
 django-ckeditor = "*"
 pillow = "*"
+django-verify-email = "*"
+django-email-verification = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
