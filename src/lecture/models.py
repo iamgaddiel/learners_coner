@@ -11,7 +11,7 @@ class Lecture(models.Model):
     level = models.ForeignKey(Class, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, default='')
     term = models.IntegerField(default=1)
-    week = models.PositiveIntegerField(help_text="lecture week")
+    # week = models.PositiveIntegerField(help_text="lecture week")
     timestamp = models.DateField(auto_now=True)
 
     def __str__(self) -> str:

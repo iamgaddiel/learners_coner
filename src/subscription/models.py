@@ -8,6 +8,7 @@ class Subscription(models.Model):
     payment_type = models.CharField(max_length=100)
     flw_ref = models.CharField(max_length=150)
     tx_ref = models.CharField(max_length=150)
+    date_time = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return f"{self.user.username} - {self.tx_ref}"

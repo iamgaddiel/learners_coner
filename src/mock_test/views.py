@@ -8,9 +8,9 @@ from .models import MockTest, MockTestQuestion
 class MockTestViewSet(ModelViewSet):
     queryset = MockTest.objects.all()
     serializer_class = MockTestSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 class MockTestQuestionViewSet(ModelViewSet):
     queryset = MockTestQuestion.objects.all()
     serializer_class = MockTestQuestionSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]

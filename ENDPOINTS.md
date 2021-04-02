@@ -279,11 +279,11 @@ Returns all videos
 
 • subscription/admin/{id} (GET, DELETE)
 – Header {Authorization: <Token userToken>}
-Returns a single instance of a videos
+Returns a single instance of a subscriptions
 
 • subscription/admin/{id} (PUT, PATCH)
 – Header {Authorization: <Token userToken>}
-– user: id
+<!-- – user: id -->
 – user_type
 – payment_type 
 – flw_ref
