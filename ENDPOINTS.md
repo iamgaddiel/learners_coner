@@ -182,20 +182,20 @@ Returns a single instance of a user note
 – content
 
 +++++++++++++++++++++++++++++++++ VIDEOS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
-• videos/ (GET)
+• video/ (GET)
 – Header {Authorization: <Token userToken>}
 Returns all videos
 
-• videos/ (POST)
+• video/ (POST)
 – Header {Authorization: <Token userToken>}
 – title
 – link
 
-• videos/{id} (GET, DELETE)
+• video/{id} (GET, DELETE)
 – Header {Authorization: <Token userToken>}
 Returns a single instance of a videos
 
-• videos/admin/{id} (PUT, PATCH)
+• video/admin/{id} (PUT, PATCH)
 – Header {Authorization: <Token userToken>}
 – title
 – link
@@ -299,8 +299,8 @@ Returns a single instance of a subscriptions
 – tx_ref
 
 
-+++++++++++++++++++++++++++++++++ MOCK TEST ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
-• mock/mocktest/ (GET)
++++++++++++++++++++++++++++++++++ Volunteer ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+• volunteer/admin/ (GET)
 – Header {Authorization: <Token adminToken>}
 Returns all Volunteers
 
