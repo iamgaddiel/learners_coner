@@ -5,7 +5,8 @@ from core.views import (
     Root,
     PhoneNumberCheckView,
     SendVerificationEmail,
-    VerifyEmail
+    VerifyEmail,
+    FacebookLogin
 )
 
 router = DefaultRouter()
@@ -18,6 +19,8 @@ urlpatterns = [
     path('email/verification/confirm/', VerifyEmail.as_view(), name="email_verification_confrim"),
     path('classroom/', include('classroom.urls')),
     path('', Root.as_view(), name="root"),
+    path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    # path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
 
     # drf
     path('auth/', include('rest_framework.urls')),
@@ -28,6 +31,7 @@ urlpatterns = [
     path('lecture/', include('lecture.urls')),
     path('news/', include('news.urls')),
     path('note/', include('note.urls')),
+    path('mock/', include('mock_test.urls'))
     # path('email/verification/', include('email_verification'))
     # path('podcast/', include('podcast.urls')),
 ]

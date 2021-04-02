@@ -24,6 +24,8 @@ from rest_framework.request import QueryDict
 from rest_framework.authtoken.views import ObtainAuthToken
 
 from dj_rest_auth.registration.views import RegisterView, RegisterSerializer
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from dj_rest_auth.registration.views import SocialLoginView
 
 # JWT
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -178,3 +180,5 @@ class VerifyEmail(generics.GenericAPIView):
         except jwt.DecodeError:
             return Response({'error': "invalid token"}, status=400)
 
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter

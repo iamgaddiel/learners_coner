@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import MockTest, MockTestQuestion
 
-# Register your models here.
+
+admin.site.register(MockTestQuestion)
+admin.site.register(MockTest)

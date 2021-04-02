@@ -9,5 +9,6 @@ class NewsViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated
     ]
     queryset = News.objects.all()
+    serializer_class = NewsSerializer
 
 

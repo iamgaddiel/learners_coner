@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # Rest_framework
     'rest_framework',
@@ -35,7 +36,6 @@ INSTALLED_APPS = [
     'dj_rest_auth',
 
     # dj-rest-auth/register
-    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'dj_rest_auth.registration',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # dj-rest-auth/social
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
 
     'ckeditor', #CKEditor
 
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     'mock_test',
     'news',
     'note',
+    'volunteers',
     # 'podcast',
     'referral',
     'school',
@@ -167,6 +169,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':  [
         'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ],
