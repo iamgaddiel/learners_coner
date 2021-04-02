@@ -6,6 +6,6 @@ from .models import Volunteer
 from .serializer import VolunteerSerializer
 
 class VolunteerViewSet(ModelViewSet):
-    queryset = Volunteer
+    queryset = Volunteer.objects.all()
     permission_classes = [IsAdminUser, IsAuthenticated]
     serializer_class = VolunteerSerializer

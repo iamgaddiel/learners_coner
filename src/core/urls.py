@@ -32,9 +32,8 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('note/', include('note.urls')),
     path('mock/', include('mock_test.urls')),
-    path('video/', include('video')),
-    path('volunteers/', include('volunteers')),
-    path('')
+    path('video/', include('video.urls')),
+    path('volunteers/', include('volunteers.urls')),
     # path('email/verification/', include('email_verification'))
     # path('podcast/', include('podcast.urls')),
 ]

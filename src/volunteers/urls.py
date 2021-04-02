@@ -7,5 +7,5 @@ from volunteers.views import VolunteerViewSet
 router = DefaultRouter()
 router.register('admin', VolunteerViewSet)
 
-urlpattern = []
-urlpattern += router.urls
+urlpatterns = []
+urlpatterns += router.urls
