@@ -1,7 +1,7 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from core.views import (
-    CustomLoginView, UserRegistration,
+    CustomLoginView, PasswordResetConfrimView, PasswordResetView, UserRegistration,
     Root,
     PhoneNumberCheckView,
     SendVerificationEmail,
@@ -21,6 +21,8 @@ urlpatterns = [
     path('', Root.as_view(), name="root"),
     path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     # path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path('password-reset', PasswordResetView.as_view(), name="password_reset"),
+    path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfrimView.as_view, name="password_reset_confirm"),
 
     # drf
     path('auth/', include('rest_framework.urls')),

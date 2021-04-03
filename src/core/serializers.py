@@ -62,3 +62,9 @@ class PhoneNumberConfirmSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields: list = ['phone']
 
+class PasswordResetSerialier(serializers.Serializer):
+    email = serializers.EmailField()
+
+    class Meta:
+        fields = ['email']
+

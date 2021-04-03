@@ -5,7 +5,7 @@ from rest_framework.viewsets import ViewSet
 from .views import VideoViewSet
 
 
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register('', VideoViewSet)
 
 urlpatterns = []
