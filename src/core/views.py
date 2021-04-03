@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import models
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -49,7 +50,6 @@ class UserRegistration(generics.CreateAPIView):
 
 # Admin only
 
-
 class Users(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -58,6 +58,8 @@ class Users(viewsets.ModelViewSet):
         permissions.IsAdminUser
     ]
 
+class UserProfileUpdate(generics.GenericAPIView):
+    pass
 
 class CustomAuthToken(ObtainAuthToken):
     # return more info when getting user token

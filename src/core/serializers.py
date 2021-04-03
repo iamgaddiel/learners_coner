@@ -68,3 +68,10 @@ class PasswordResetSerialier(serializers.Serializer):
     class Meta:
         fields = ['email']
 
+class ProfileUpdateSeiralizer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'first_name', 
+            'last_name', 
+        ]

@@ -79,7 +79,8 @@ Returns level, subject, term, week, title, term
 
 +++++++++++++++++++++++++++++++++ NEWS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 
-------(ADMIN)
+++++++ADMIN)+++++++
+
 • news/admin/ (GET)
 – Header {Authorization: <Token userToken>}
 Returns all news
@@ -100,7 +101,8 @@ Returns a single instance of a news
 – source
 – link
 
-------(USER)
+++++++USER)+++++++
+
 • news/ (GET)
 – Header {Authorization: <Token userToken>}
 returns all news
@@ -110,7 +112,8 @@ returns all news
 returns single news
 
 +++++++++++++++++++++++++++++++++ NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
-------(ADMIN)
++++++++ADMIN)+++++
+
 • note/ (GET)
 Returns all note
 
@@ -130,7 +133,8 @@ Returns a single instance of a note
 – title
 – content
 
-------(USER)
+++++++(USER)++++++
+
 • note/user/{userId}/ (GET)
 – Header {Authorization: <Token userToken>}
 Returns all student note
@@ -164,6 +168,8 @@ Returns all videos
 – Header {Authorization: <Token userToken>}
 – title
 – link
+– level : level id
+– term : 0 -> (1st term), 1 -> (2nd term), 2 -> (3rd term)
 
 • video/{id} (GET, DELETE)
 – Header {Authorization: <Token userToken>}
@@ -173,6 +179,8 @@ Returns a single instance of a videos
 – Header {Authorization: <Token userToken>}
 – title
 – link
+– level : level id
+– term : 0 -> (1st term), 1 -> (2nd term), 2 -> (3rd term)
 
 +++++++++++++++++++++++++++++++++ Email Verification ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 
