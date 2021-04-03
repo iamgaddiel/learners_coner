@@ -7,11 +7,6 @@ Returns
 -- {"status": 'error', "message": "phone number already exists"}
 -- {"status": "success", "message": "phone number not found"}
 
-• /dj-rest-auth/login/ (POST)
-– username
-– email
-– password
-Returns Token key
 
 • /user/login/ (POST)
 – phone
@@ -28,37 +23,7 @@ Returns => token, user_id,username, full_name, phone, country, level, email, rol
 – referral_code
 – syllable
 
-• /user/email/verification (POST)
-– fullname
-– email
-
-
 • /dj-rest-auth/logout/ (GET)
-
-• /dj-rest-auth/password/reset/ (POST)
-– email
-
-• /dj-rest-auth/password/reset/confirm/ (POST)
-– uid
-– token
-– new_password1
-– new_password2
-Note: uid and token are sent in email after calling /dj-rest-auth/password/reset/
-
-• /dj-rest-auth/password/change/ (POST)
-– new_password1
-– new_password2
-– old_password
-
-    Note: OLD_PASSWORD_FIELD_ENABLED = True to use old_password.
-    Note: LOGOUT_ON_PASSWORD_CHANGE = False to keep the user logged in after password
-    change
-
-• /dj-rest-auth/user/ (GET, PUT, PATCH)
-– username
-– first_name
-– last_name
-Returns pk, username, email, first_name, last_name
 
 • /dj-rest-auth/token/verify/ (POST)
 – token
@@ -73,8 +38,6 @@ Returns pk, username, email, first_name, last_name
 • /dj-rest-auth/token/refresh/ (POST)
 – refresh
 Returns access
-Note: REST_USE_JWT = True to use token/refresh/ route.
-
     Note: Takes a refresh type JSON web token and returns an access type JSON web token if the refresh
     token is valid. HTTP 401 Unauthorized with {"detail": "Token is invalid or
     expired", "code": "token_not_valid"} in case of a invalid or expired token.
@@ -115,6 +78,8 @@ Note: The endpoints are for students
 Returns level, subject, term, week, title, term
 
 +++++++++++++++++++++++++++++++++ NEWS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+
+------(ADMIN)
 • news/admin/ (GET)
 – Header {Authorization: <Token userToken>}
 Returns all news
@@ -126,14 +91,21 @@ Returns all news
 – link
 
 • news/admin/{id} (GET, DELETE)
-– Header {Authorization: <Token userToken>}
+– Header {Authorization: <Token adminToken>}
 Returns a single instance of a news
 
 • news/admin/{id} (PUT, PATCH)
-– Header {Authorization: <Token userToken>}
+– Header {Authorization: <Token adminToken>}
 – title
 – source
 – link
+
+------(USER)
+• news/ (GET)
+– Header {Authorization: <Token userToken>}
+
+• news/{id} (GET)
+– Header {Authorization: <Token userToken>}
 
 +++++++++++++++++++++++++++++++++ NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 ------(ADMIN)
@@ -195,7 +167,7 @@ Returns all videos
 – Header {Authorization: <Token userToken>}
 Returns a single instance of a videos
 
-• video/admin/{id} (PUT, PATCH)
+• video/{id} (PUT, PATCH)
 – Header {Authorization: <Token userToken>}
 – title
 – link
@@ -210,7 +182,7 @@ Returns a single instance of a videos
 
 +++++++++++++++++++++++++++++++++ Facebook Login ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 
-• auth/facebook/ (GET)
+• auth/facebook/ (POST)
 – email
 
 

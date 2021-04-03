@@ -4,7 +4,6 @@ from core.models import CustomUser
 
 class Subscription(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=50)
     payment_type = models.CharField(max_length=100)
     flw_ref = models.CharField(max_length=150)
     tx_ref = models.CharField(max_length=150)

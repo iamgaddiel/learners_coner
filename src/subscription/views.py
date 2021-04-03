@@ -24,6 +24,6 @@ class SubscriptionViewSet(ListModelMixin, DestroyModelMixin, GenericAPIView):
 class SubscriptionView(CreateModelMixin, GenericAPIView):
     serializer_class = SubscriptionSerializer
     queryset = Subscription.objects.all()
-
+    
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
