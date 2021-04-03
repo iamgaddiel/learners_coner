@@ -3,5 +3,6 @@ from .models import News
 
 
 class NewsSerializer(ModelSerializer):
-    model = News
-    fields = '__all__'
+    class Meta:
+        model = News
+        fields = '__all__'

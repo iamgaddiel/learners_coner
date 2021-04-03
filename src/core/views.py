@@ -199,7 +199,7 @@ class PasswordResetView(generics.GenericAPIView):
             if CustomUser.objects.filter(email=email).exists():
 
                 user = CustomUser.objects.get(email=email)
-                uidb64 = urlsafe_base64_encode(user.id)
+                uidb64 = urlsafe_base64_encode(str(user.id).encode('utf-8'))
                 token = PasswordResetTokenGenerator().make_token(user)
                 current_site_domain = get_current_site(request).domain #get sites domain
 
@@ -216,6 +216,7 @@ class PasswordResetView(generics.GenericAPIView):
                     'recipient'   : user.email,
                     'subject'     : "Password Reset"
                 }
+                print(data['sender'])
                 Util.send_email(data)
                 return Response({"success": "Check your we've sent you a link to reset your password"})
             else:

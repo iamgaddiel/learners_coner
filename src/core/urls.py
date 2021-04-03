@@ -21,6 +21,7 @@ urlpatterns = [
     path('', Root.as_view(), name="root"),
     path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     # path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    
     path('password-reset', PasswordResetView.as_view(), name="password_reset"),
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfrimView.as_view, name="password_reset_confirm"),
 
