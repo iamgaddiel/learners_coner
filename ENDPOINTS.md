@@ -103,9 +103,11 @@ Returns a single instance of a news
 ------(USER)
 • news/ (GET)
 – Header {Authorization: <Token userToken>}
+returns all news
 
 • news/{id} (GET)
 – Header {Authorization: <Token userToken>}
+returns single news
 
 +++++++++++++++++++++++++++++++++ NOTES ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 ------(ADMIN)
