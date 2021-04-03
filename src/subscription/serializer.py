@@ -1,5 +1,4 @@
 from django.db.models.base import Model
-from django.shortcuts import render_to_response
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from .models import Subscription

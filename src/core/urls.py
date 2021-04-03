@@ -37,6 +37,7 @@ urlpatterns = [
     path('mock/', include('mock_test.urls')),
     path('video/', include('video.urls')),
     path('volunteers/', include('volunteers.urls')),
+    path('subscription/', include('subscription.urls')),
     # path('email/verification/', include('email_verification'))
     # path('podcast/', include('podcast.urls')),
 ]
