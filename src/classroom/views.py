@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions
 
@@ -15,6 +16,11 @@ class SubjectViewSet(ModelViewSet):
         permissions.IsAdminUser
     ]
 
+class StudentSubject(ListAPIView):
+    serializer_class = SubjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Subject.objects.all()
+
 class ClassViewSet(ModelViewSet):
     queryset = Class.objects.all()
     serializer_class = ClassSerializer
@@ -22,3 +28,4 @@ class ClassViewSet(ModelViewSet):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+

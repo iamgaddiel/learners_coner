@@ -40,6 +40,7 @@ urlpatterns = [
     path('video/', include('video.urls')),
     path('volunteers/', include('volunteers.urls')),
     path('subscription/', include('subscription.urls')),
+    path('classroom/', include('classroom.urls')),
     # path('email/verification/', include('email_verification'))
     # path('podcast/', include('podcast.urls')),
 ]

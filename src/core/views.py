@@ -64,8 +64,7 @@ class UserProfileUpdate(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         user_update_fields = [
-            'first_name', 
-            'last_name', 
+            'fullname', 
             'phone',
             'level',
         ]
@@ -73,17 +72,14 @@ class UserProfileUpdate(generics.UpdateAPIView):
             if data in user_update_fields:
                 try:
                     phone = self.request.data.get('phone')
-                    last_name = self.request.data.get('last_name')
-                    first_name = self.request.data.get('first_name')
+                    fullname = self.request.data.get('fullname')
                     level = self.request.data.get('level')
                     user = CustomUser.objects.get(id=self.kwargs.get('user'))
                     
                     if phone is not None:
                         user.phone = phone
-                    if first_name is not None:
-                        user.first_name = first_name
-                    if last_name is not None:
-                        user.last_name = last_name
+                    if fullname is not None:
+                        user.fullname = fullname
                     if level is not None:
                         user.level = level
                     user.save()

@@ -23,6 +23,13 @@ Returns => token, user_id,username, full_name, phone, country, level, email, rol
 – referral_code
 – syllable
 
+• user/profile/{user_id}/update/ (PUT)
+dob : format YYYY-MM-DD
+fullname
+phone
+level
+gender (int) : 0 -> Male, 1 -> Female
+
 • /dj-rest-auth/logout/ (GET)
 
 • /dj-rest-auth/token/verify/ (POST)
@@ -312,3 +319,59 @@ Returns a single instance of a Volunteer
 – subject
 – term 
 – level
+
+
++++++++++++++++++++++++++++++++++ CLASSROOM SUBJECT ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+
+Note: The following endpoints are for the admin
+
+• classroom/admin/subjects/ (GET)
+– Header {Authorization: <Token adminToken>}
+Returns all subject
+
+• classroom/admin/ (POST)
+– Header {Authorization: <Token adminToken>}
+– title
+– classes : array of classes id, Eg. [1, 2, 3]
+
+• classroom/admin/subjects/{id} (GET, DELETE)
+– Header {Authorization: <Token adminToken>}
+Returns a single instance of a subject
+
+• classroom/admin/subjects/{id} (PUT, PATCH)
+– Header {Authorization: <Token adminToken>}
+– title
+– classes : array of classes id, Eg. [1, 2, 3]
+
+Note: The following endpoints are for the users
+
+• classroom/user/subjects/ (GET)
+– Header {Authorization: <Token userToken>}
+Returns all subject
+
++++++++++++++++++++++++++++++++++ CLASSROOM CLASS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+
+Note: The following endpoints are for the admin
+
+• classroom/admin/subjects/ (GET)
+Returns all lectures
+
+• lecture/admin/ (POST)
+– title
+– note| PDF file
+– level
+– subject
+– term
+– week
+
+• classroom/admin/subjects/{id} (GET, DELETE)
+Returns a single instance of a lecture
+
+• classroom/admin/subjects/{id} (PUT, PATCH)
+– title
+– note
+– level
+– subject
+– term
+– week
+

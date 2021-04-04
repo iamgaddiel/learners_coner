@@ -25,6 +25,7 @@ class MockTestQuestion(models.Model):
     ]
     mock_test = models.ForeignKey(MockTest, on_delete=models.CASCADE)
     correct_answer = models.CharField(max_length=1, choices=CORRECT_OPTIONS)
+    question = models.CharField(max_length=500, unique=True, blank=True)
     a = models.CharField(max_length=400, default="")
     b = models.CharField(max_length=400, default="")
     c = models.CharField(max_length=400, default="")
