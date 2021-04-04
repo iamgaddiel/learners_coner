@@ -17,7 +17,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields: list = [
             # 'username',
             'fullname',
-            'phone', 
+            'phone',
             'country',
             'level',
             'password',
@@ -26,7 +26,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "password": {
-                "write_only": True, 
+                "write_only": True,
                 'style': {
                     'input_type': 'password'
                 }
@@ -35,7 +35,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        # overide create method to hash user password 
+        # overide create method to hash user password
         password = validated_data.pop("password")
         phone = validated_data.get('phone')
         fullname = validated_data.get('fullname')
@@ -47,20 +47,22 @@ class CustomUserSerializer(serializers.ModelSerializer):
         referral_code = validated_data.get('referral_code')
         if referral_code is not None:
             if not (referral_qs := Profile.objects.filter(personal_referral_code=referral_code)).exists():
-            # if not referral_qs.exists():
+                # if not referral_qs.exists():
                 raise serializers.ValidationError("Referral doesn't exists")
         user.save()
-        
+
         # Creates user profile
         user_profile = Profile(user=user)
         user_profile.personal_referral_code = f'https://learners-corner.netlify.app/signup?ref_code={phone}'
         user_profile.save()
         return user
 
+
 class PhoneNumberConfirmSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields: list = ['phone']
+
 
 class PasswordResetSerialier(serializers.Serializer):
     email = serializers.EmailField()
@@ -68,10 +70,15 @@ class PasswordResetSerialier(serializers.Serializer):
     class Meta:
         fields = ['email']
 
-class ProfileUpdateSeiralizer(serializers.ModelSerializer):
+
+class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = Profile
         fields = [
-            'first_name', 
-            'last_name', 
+            'user',
+            'address',
+            'dob',
+            'first_name',
+            'last_name',
+            'phone',
         ]

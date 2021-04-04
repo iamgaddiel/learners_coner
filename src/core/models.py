@@ -37,6 +37,10 @@ class CustomUser(AbstractUser):
         return f'{self.username}'
 
 class Profile(models.Model):
+    GENDER = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    ]
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='profile_images %Y/%M/%d', default='user.png')
     address: str = models.TextField(default='')
@@ -46,6 +50,7 @@ class Profile(models.Model):
         help_text="Enter referral phone number"
     )
     dob = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=6, choices=GENDER, default=GENDER[0])
     
 
     def __str__(self) -> str:

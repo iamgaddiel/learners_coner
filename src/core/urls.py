@@ -1,7 +1,8 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
+from core.serializers import ProfileUpdateSerializer
 from core.views import (
-    CustomLoginView, PasswordResetConfrimView, PasswordResetView, UserRegistration,
+    CustomLoginView, PasswordResetConfrimView, PasswordResetView, UserProfileUpdate, UserRegistration,
     Root,
     PhoneNumberCheckView,
     SendVerificationEmail,
@@ -15,6 +16,7 @@ urlpatterns = [
     path('user/register/', UserRegistration.as_view(), name='user_registration'),
     path('user/login/', CustomLoginView.as_view(), name='custom-login'),
     path('user/phone/confirm/', PhoneNumberCheckView.as_view(), name='phone_confirm'),
+    path('user/profile/<int:user>/update/', UserProfileUpdate.as_view(), name="profile_update"),
     path('email/verification/', SendVerificationEmail.as_view(), name="send_email_verification"),
     path('email/verification/confirm/', VerifyEmail.as_view(), name="email_verification_confrim"),
     path('classroom/', include('classroom.urls')),

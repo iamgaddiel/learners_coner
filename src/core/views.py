@@ -1,10 +1,5 @@
-from django.contrib.auth import login, authenticate
-from django.contrib.auth import models
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
 from django.urls.base import reverse
 from django.conf import settings
 
@@ -24,6 +19,7 @@ from rest_framework import (
     viewsets,
     views,
 )
+from rest_framework import request
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -38,8 +34,8 @@ from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework_simplejwt.tokens import RefreshToken
 import jwt
 
-from core.models import CustomUser
-from core.serializers import CustomUserSerializer, PasswordResetSerialier, PhoneNumberConfirmSerializer
+from core.models import CustomUser, Profile
+from core.serializers import CustomUserSerializer, PasswordResetSerialier, PhoneNumberConfirmSerializer, ProfileUpdateSerializer
 from .utils import Util
 from learner_conner.settings import EMAIL_HOST_USER
 
@@ -58,8 +54,43 @@ class Users(viewsets.ModelViewSet):
         permissions.IsAdminUser
     ]
 
-class UserProfileUpdate(generics.GenericAPIView):
-    pass
+class UserProfileUpdate(generics.UpdateAPIView):
+    serializer_class = ProfileUpdateSerializer
+    queryset = Profile.objects.all()
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+    lookup_field = "user"
+
+    def perform_update(self, serializer):
+        user_update_fields = [
+            'first_name', 
+            'last_name', 
+            'phone',
+            'level',
+        ]
+        for data in self.request.data:
+            if data in user_update_fields:
+                try:
+                    phone = self.request.data.get('phone')
+                    last_name = self.request.data.get('last_name')
+                    first_name = self.request.data.get('first_name')
+                    level = self.request.data.get('level')
+                    user = CustomUser.objects.get(id=self.kwargs.get('user'))
+                    
+                    if phone is not None:
+                        user.phone = phone
+                    if first_name is not None:
+                        user.first_name = first_name
+                    if last_name is not None:
+                        user.last_name = last_name
+                    if level is not None:
+                        user.level = level
+                    user.save()
+                    
+                except CustomUser.DoesNotExist:
+                    return Response({"error": "user does not exist"})
+        return super().perform_update(serializer)
 
 class CustomAuthToken(ObtainAuthToken):
     # return more info when getting user token
