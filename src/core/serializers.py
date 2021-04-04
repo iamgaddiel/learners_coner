@@ -78,4 +78,5 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
             'user',
             'address',
             'dob',
+            'gender'
         ]
