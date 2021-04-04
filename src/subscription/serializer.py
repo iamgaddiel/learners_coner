@@ -14,8 +14,8 @@ class SubscriptionSerializer(ModelSerializer):
     def create(self, validated_data):
         # Check if user exists
         try:
-            user_id = validated_data.get('user')
-            user = CustomUser.objects.get(id=user_id)
+            user = validated_data.get('user')
+            user = CustomUser.objects.get(id=user.id)
             user.is_subscribed = True
             user.save()
         except CustomUser.DoesNotExist:
