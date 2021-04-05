@@ -16,6 +16,7 @@ pillow = "*"
 django-verify-email = "*"
 django-email-verification = "*"
 djangorestframework-simplejwt = "*"
+drf-pdf = "*"
 
 [dev-packages]
 

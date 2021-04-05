@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     # CORS-HEADERS
     'corsheaders',
 
+    # DRF PDF
+    'drf_pdf',
+    
     # Apps
     'core',
     'classroom',
@@ -156,6 +159,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIR = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/'
 
 # Custom User model
 AUTH_USER_MODEL = 'core.CustomUser'

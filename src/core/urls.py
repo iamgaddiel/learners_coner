@@ -44,5 +44,4 @@ urlpatterns = [
     # path('email/verification/', include('email_verification'))
     # path('podcast/', include('podcast.urls')),
 ]
-
 urlpatterns += router.urls

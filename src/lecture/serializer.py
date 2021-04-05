@@ -13,4 +13,4 @@ class LectureSerializer(serializers.ModelSerializer):
 class GetStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lecture
-        fields = ['level', 'subject', 'term', 'week', 'note', 'title']
+        fields = ['level', 'subject', 'term', 'note', 'title']

@@ -79,7 +79,7 @@ Note: The endpoints are for students
 
 • lecture/detail/ (POST)
 – Header {Authorization: Token <user token key>}
-– level | JSS1, JSS2, JSS3, SSS1, SSS2, SSS3
+– level | JSS1, JSS2, JSS3, SSS1, SSS2, SSS3 
 – subject
 – term
 Returns level, subject, term, week, title, term
@@ -272,7 +272,7 @@ Returns a single instance of a subscriptions
 
 • subscription/admin/{id} (PUT, PATCH)
 – Header {Authorization: <Token userToken>}
-<!-- – user: id -->
+– user: id
 – user_type
 – payment_type 
 – flw_ref
