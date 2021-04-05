@@ -178,6 +178,7 @@ class SendVerificationEmail(generics.GenericAPIView):
     @TODO: use POST method to get user email not get
     """
     # Send email verification
+    serializer_class = PasswordResetSerialier
     def post(self, request, *args, **kwargs):
         try:
             user = CustomUser.objects.get(email=request.data.get('email'))

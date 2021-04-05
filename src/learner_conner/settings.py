@@ -205,16 +205,19 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Email Config
-EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+EMAIL_HOST = 'server39.web-hosting.com'
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_TIMEOUT = 60 * 60
 
 if DEBUG:
     # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST_USER = os.environ.get('DEBUG_EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('DEBUG_EMAIL_HOST_PASSWORD')
+    EMAIL_HOST_USER = 'info@learnerscorner.org'
+    EMAIL_HOST_PASSWORD = 'Learners_2021'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
