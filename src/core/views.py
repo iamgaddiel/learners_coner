@@ -19,7 +19,7 @@ from rest_framework import (
     viewsets,
     views,
 )
-from rest_framework import request
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -35,7 +35,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import jwt
 
 from core.models import CustomUser, Profile
-from core.serializers import CustomUserSerializer, PasswordResetSerialier, PhoneNumberConfirmSerializer, ProfileUpdateSerializer
+from core.serializers import (
+    CustomUserSerializer, 
+    PasswordResetCompleteSerializer, 
+    PasswordResetSerialier, 
+    PhoneNumberConfirmSerializer, 
+    ProfileUpdateSerializer,
+)
 from .utils import Util
 from learner_conner.settings import EMAIL_HOST_USER
 
@@ -173,27 +179,25 @@ class CustomLoginView(views.APIView):
             }, status=404)
 
 
-class SendVerificationEmail(generics.GenericAPIView):
+class VerifyEmail(generics.GenericAPIView):
     """
     @DESC: sends email verification code to user's email
     @PARAMS: email
     @REQUEST Method: POST, GET
-    @TODO: use POST method to get user email not get
+    @TODO: add a serializer class
     """
     # Send email verification
-    # serializer_class = PasswordResetSerialier
+    serializer_class = PasswordResetSerialier
 
     def post(self, request, *args, **kwargs):
         try:
             user = CustomUser.objects.get(email=request.data.get('email'))
             jwt_token = RefreshToken.for_user(
                 user).access_token  # get JWT access token
-            current_site_domain = get_current_site(
-                request).domain  # get sites domain
-            # get the relative path to email verification
-            relative_url = reverse('email_verification_confrim')
-            absolute_url = f"http://{current_site_domain}{relative_url}?token={jwt_token}"
-            # domain = f"http://{}"
+            current_site_domain = Util.get_host_domain(request)
+            relative_url = reverse('email_verification_confrim') # get the relative path to email verification
+            absolute_url = f"{current_site_domain}{relative_url}?token={jwt_token}"
+            
             data = {
                 'message': f"Hi {user.username} use the link below to verify your account \n {absolute_url}",
                 'sender': settings.EMAIL_HOST_USER,
@@ -201,17 +205,18 @@ class SendVerificationEmail(generics.GenericAPIView):
                 'subject': "Email Verification"
             }
             Util.send_email(data)
+
             return Response({
-                'data': 'check your email to verify account'
+                'data': "check your email to verify account, if it's not there then check your spam"
             })
         except CustomUser.DoesNotExist:
             return Response({"data": "user with this email does not exists"}, status=404)
 
 
-class VerifyEmail(generics.GenericAPIView):
+class VerifyEmailConfirm(views.APIView):
     def get(self, request, *args, **kwargs):
         user_token = request.GET.get('token')
-        payload = jwt.decode(user_token, settings.SECRET_KEY)
+        payload = jwt.decode(user_token, settings.SECRET_KEY, ['HS256'])
         try:
             if not (user := CustomUser.objects.get(id=payload.get('user_id'))).is_verified:
                 user.is_verified = True
@@ -240,15 +245,14 @@ class PasswordResetView(generics.GenericAPIView):
                 user = CustomUser.objects.get(email=email)
                 uidb64 = urlsafe_base64_encode(str(user.id).encode('utf-8'))
                 token = PasswordResetTokenGenerator().make_token(user)
-                current_site_domain = get_current_site(
-                    request).domain  # get sites domain
+                current_site_domain = Util.get_host_domain(request)
 
                 relative_url = reverse(
                     'password_reset_confirm', kwargs={
                         'uidb64': uidb64, 'token': token
                     })  # get the relative path to email verification
 
-                absolute_url = f"http://{current_site_domain}{relative_url}"
+                absolute_url = f"{current_site_domain}{relative_url}"
 
                 data = {
                     'message': f"Hi \n use the link below to reset your password \n {absolute_url}",
@@ -265,6 +269,34 @@ class PasswordResetView(generics.GenericAPIView):
                 return Response({"error": "Your email was not found"})
 
 
-class PasswordResetConfrimView(generics.GenericAPIView):
-    def get(self, *args, **kwargs):
-        pass
+class PasswordResetConfrimView(views.APIView):
+    def get(self, request, uidb64, token):
+
+        try:
+            id = smart_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(id=id)
+
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                return Response({'error', 'invalid token, kindly request a new one'})
+
+            return Response({
+                "success": True,
+                "message": "Credential valid",
+                "uidb64": uidb64,
+                "token": token
+            })
+
+        except DjangoUnicodeDecodeError as e:
+            return Response({'error', 'altered token, kindly request a new one'})
+
+class PasswordResetCompleteView(generics.GenericAPIView):
+    serializer_class = PasswordResetCompleteSerializer
+    
+    def patch(self, request,*args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            return Response({
+                "success": True,
+                "message": "password reset successful"
+            }, status=status.HTTP_200_OK)
+

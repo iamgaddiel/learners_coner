@@ -12,3 +12,10 @@ class Util:
         mail.send()
 
         print(data['sender'])
+    
+    @staticmethod
+    def get_host_domain(request):
+        scheme = 'https' if request.is_secure() else 'http'
+        site = request.get_host()
+        site_domain = f'{scheme}://{site}'
+        return site_domain

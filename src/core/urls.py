@@ -5,9 +5,10 @@ from core.views import (
     CustomLoginView, PasswordResetConfrimView, PasswordResetView, UserProfileUpdate, UserRegistration,
     Root,
     PhoneNumberCheckView,
-    SendVerificationEmail,
     VerifyEmail,
-    FacebookLogin
+    VerifyEmailConfirm,
+    FacebookLogin,
+    PasswordResetCompleteView
 )
 
 router = DefaultRouter()
@@ -17,15 +18,17 @@ urlpatterns = [
     path('user/login/', CustomLoginView.as_view(), name='custom-login'),
     path('user/phone/confirm/', PhoneNumberCheckView.as_view(), name='phone_confirm'),
     path('user/profile/<int:user>/update/', UserProfileUpdate.as_view(), name="profile_update"),
-    path('email/verification/', SendVerificationEmail.as_view(), name="send_email_verification"),
-    path('email/verification/confirm/', VerifyEmail.as_view(), name="email_verification_confrim"),
+    path('email/verification/', VerifyEmail.as_view(), name="send_email_verification"),
+    path('email/verification/confirm/', VerifyEmailConfirm.as_view(), name="email_verification_confrim"),
     path('classroom/', include('classroom.urls')),
     path('', Root.as_view(), name="root"),
     path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     # path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     
-    path('password-reset', PasswordResetView.as_view(), name="password_reset"),
-    path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfrimView.as_view, name="password_reset_confirm"),
+    # password reset urls
+    path('password-reset/', PasswordResetView.as_view(), name="password_reset"),
+    path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfrimView.as_view(), name="password_reset_confirm"),
+    path('password-reset-complete/', PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 
     # drf
     path('auth/', include('rest_framework.urls')),

@@ -1,10 +1,16 @@
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework import validators
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.validators import ValidationError
 
 # Project
 from core.models import CustomUser, Profile
+
+#password reset
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import smart_bytes, force_str, smart_str, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 # confirm email
 # from verify_email.email_handler import send_verification_email
@@ -13,7 +19,7 @@ from core.models import CustomUser, Profile
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = CustomUser 
         fields: list = [
             # 'username',
             'fullname',
@@ -80,3 +86,31 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
             'dob',
             'gender'
         ]
+
+class PasswordResetCompleteSerializer(serializers.Serializer):
+    password = serializers.CharField(min_length=1, max_length=20, write_only=True)
+    uidb64 = serializers.CharField(min_length=1, write_only=True)
+    token = serializers.CharField(min_length=1, write_only=True)
+
+    class Meta:
+        fields = ['password', 'uidb64', 'token']
+    
+    def validate(self, attrs):
+        try:
+            password = attrs.get('password')
+            uidb64 = attrs.get('uidb64')
+            token = attrs.get('token')
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(id=id)
+
+            # check if link has been used before
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise AuthenticationFailed('The reset link is invalid', 401)
+
+            user.set_password(password)
+            user.save()
+
+        except Exception as e:
+            raise AuthenticationFailed('The reset link is invalid', 401)
+
+        return super().validate(attrs)
