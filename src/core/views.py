@@ -46,6 +46,7 @@ class UserRegistration(generics.CreateAPIView):
 
 # Admin only
 
+
 class Users(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -53,6 +54,7 @@ class Users(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+
 
 class UserProfileUpdate(generics.UpdateAPIView):
     serializer_class = ProfileUpdateSerializer
@@ -64,7 +66,7 @@ class UserProfileUpdate(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         user_update_fields = [
-            'fullname', 
+            'fullname',
             'phone',
             'level',
         ]
@@ -75,7 +77,7 @@ class UserProfileUpdate(generics.UpdateAPIView):
                     fullname = self.request.data.get('fullname')
                     level = self.request.data.get('level')
                     user = CustomUser.objects.get(id=self.kwargs.get('user'))
-                    
+
                     if phone is not None:
                         user.phone = phone
                     if fullname is not None:
@@ -83,10 +85,11 @@ class UserProfileUpdate(generics.UpdateAPIView):
                     if level is not None:
                         user.level = level
                     user.save()
-                    
+
                 except CustomUser.DoesNotExist:
                     return Response({"error": "user does not exist"})
         return super().perform_update(serializer)
+
 
 class CustomAuthToken(ObtainAuthToken):
     # return more info when getting user token
@@ -147,16 +150,16 @@ class CustomLoginView(views.APIView):
             if (password_check := check_password(password, user.password)):  # validate password
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({
-                    'username'  : user.username,
-                    'token'     : token.key,
-                    'user_id'   : user.id,
-                    'username'  : user.username,
-                    'full_name' : user.fullname,
-                    'phone'     : user.phone,
-                    'country'   : user.country,
-                    'level'     : user.level,
-                    'email'     : user.email,
-                    'role'      : user.role
+                    'username': user.username,
+                    'token': token.key,
+                    'user_id': user.id,
+                    'username': user.username,
+                    'full_name': user.fullname,
+                    'phone': user.phone,
+                    'country': user.country,
+                    'level': user.level,
+                    'email': user.email,
+                    'role': user.role
                 }, status=200)
 
             return Response({
@@ -178,20 +181,24 @@ class SendVerificationEmail(generics.GenericAPIView):
     @TODO: use POST method to get user email not get
     """
     # Send email verification
-    serializer_class = PasswordResetSerialier
+    # serializer_class = PasswordResetSerialier
+
     def post(self, request, *args, **kwargs):
         try:
             user = CustomUser.objects.get(email=request.data.get('email'))
-            jwt_token = RefreshToken.for_user(user).access_token # get JWT access token
-            current_site_domain = get_current_site(request).domain #get sites domain
-            relative_url = reverse('email_verification_confrim') # get the relative path to email verification
+            jwt_token = RefreshToken.for_user(
+                user).access_token  # get JWT access token
+            current_site_domain = get_current_site(
+                request).domain  # get sites domain
+            # get the relative path to email verification
+            relative_url = reverse('email_verification_confrim')
             absolute_url = f"http://{current_site_domain}{relative_url}?token={jwt_token}"
             # domain = f"http://{}"
             data = {
-                'message'     : f"Hi {user.username} use the link below to verify your account \n {absolute_url}",
-                'sender'      : settings.EMAIL_HOST_USER,
-                'recipient'   : user.email,
-                'subject'     : "Email Verification"
+                'message': f"Hi {user.username} use the link below to verify your account \n {absolute_url}",
+                'sender': settings.EMAIL_HOST_USER,
+                'recipient': user.email,
+                'subject': "Email Verification"
             }
             Util.send_email(data)
             return Response({
@@ -215,8 +222,10 @@ class VerifyEmail(generics.GenericAPIView):
         except jwt.DecodeError:
             return Response({'error': "invalid token"}, status=400)
 
+
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
+
 
 class PasswordResetView(generics.GenericAPIView):
     serializer_class = PasswordResetSerialier
@@ -231,26 +240,31 @@ class PasswordResetView(generics.GenericAPIView):
                 user = CustomUser.objects.get(email=email)
                 uidb64 = urlsafe_base64_encode(str(user.id).encode('utf-8'))
                 token = PasswordResetTokenGenerator().make_token(user)
-                current_site_domain = get_current_site(request).domain #get sites domain
+                current_site_domain = get_current_site(
+                    request).domain  # get sites domain
 
                 relative_url = reverse(
                     'password_reset_confirm', kwargs={
-                    'uidb64': uidb64, 'token': token
-                }) # get the relative path to email verification
+                        'uidb64': uidb64, 'token': token
+                    })  # get the relative path to email verification
 
                 absolute_url = f"http://{current_site_domain}{relative_url}"
-                
+
                 data = {
-                    'message'     : f"Hi \n use the link below to reset your password \n {absolute_url}",
-                    'sender'      : settings.EMAIL_HOST_USER,
-                    'recipient'   : user.email,
-                    'subject'     : "Password Reset"
+                    'message': f"Hi \n use the link below to reset your password \n {absolute_url}",
+                    'sender': settings.EMAIL_HOST_USER,
+                    'recipient': user.email,
+                    'subject': "Password Reset"
                 }
                 print(data['sender'])
                 Util.send_email(data)
-                return Response({"success": "Check your we've sent you a link to reset your password"})
+                return Response({
+                    "success": "Check mail your we've sent you a link to reset your password, if you don't find it check your spam"
+                })
             else:
                 return Response({"error": "Your email was not found"})
+
+
 class PasswordResetConfrimView(generics.GenericAPIView):
     def get(self, *args, **kwargs):
         pass
