@@ -5,9 +5,11 @@ from .models import MockTest, MockTestQuestion
 
 
 class MockTestSerializer(ModelSerializer):
-    models = MockTest
-    fields = '__all__'
+    class Meta:
+        model = MockTest
+        fields = '__all__'
 
 class MockTestQuestionSerializer(ModelSerializer):
-    models = MockTestQuestion
-    fields = '__all__'
+    class Meta:
+        model = MockTestQuestion
+        fields = '__all__'
