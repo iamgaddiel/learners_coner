@@ -2,6 +2,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls.base import reverse
 from django.conf import settings
+from django.contrib.auth.hashers import check_password
 
 # password reset
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -41,6 +42,7 @@ from core.serializers import (
     PasswordResetSerialier, 
     PhoneNumberConfirmSerializer, 
     ProfileUpdateSerializer,
+    LoggedInPasswordResetSerializer
 )
 from .utils import Util
 from learner_conner.settings import EMAIL_HOST_USER
@@ -75,6 +77,9 @@ class UserProfileUpdate(generics.UpdateAPIView):
             'fullname',
             'phone',
             'level',
+            'country',
+            'role',
+
         ]
         for data in self.request.data:
             if data in user_update_fields:
@@ -82,6 +87,8 @@ class UserProfileUpdate(generics.UpdateAPIView):
                     phone = self.request.data.get('phone')
                     fullname = self.request.data.get('fullname')
                     level = self.request.data.get('level')
+                    country = self.request.data.get('country')
+                    role = self.request.data.get('role')
                     user = CustomUser.objects.get(id=self.kwargs.get('user'))
 
                     if phone is not None:
@@ -90,6 +97,10 @@ class UserProfileUpdate(generics.UpdateAPIView):
                         user.fullname = fullname
                     if level is not None:
                         user.level = level
+                    if country is not None:
+                        user.country = country
+                    if role is not None:
+                        user.role = role
                     user.save()
 
                 except CustomUser.DoesNotExist:
@@ -272,7 +283,6 @@ class PasswordResetView(generics.GenericAPIView):
             else:
                 return Response({"error": "Your email was not found"})
 
-
 class PasswordResetConfrimView(views.APIView):
     def get(self, request, uidb64, token):
 
@@ -304,3 +314,29 @@ class PasswordResetCompleteView(generics.GenericAPIView):
                 "message": "password reset successful"
             }, status=status.HTTP_200_OK)
 
+
+class LoggedInPasswordResetView(generics.GenericAPIView):
+    serializer_class = LoggedInPasswordResetSerializer
+
+    def put(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            try:
+                user_id = serializer.data.get('user')
+                old_password = serializer.data.get('old_password')
+                new_password = serializer.data.get('new_password')
+                confirm_new_password = serializer.data.get('confirm_new_password')
+
+                user = CustomUser.objects.get(id=user_id)
+                if (validate_old_password := check_password(old_password, user.password)):
+                    print(validate_old_password)
+                    if new_password == confirm_new_password:
+                        user.set_password(new_password)
+                        user.save()
+                        return Response({"success": "Password updated successfully"}, status=status.HTTP_205_RESET_CONTENT)
+                    else:
+                        return Response({"error": "passwords do not match"}, status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    return Response({"error": "invalid old password"}, status=status.HTTP_400_BAD_REQUEST)
+            except CustomUser.DoesNotExist as e:
+                return Response({"error": "invalid user"}, status=status.HTTP_400_BAD_REQUEST)

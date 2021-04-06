@@ -1,3 +1,4 @@
+from re import S
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework import validators
@@ -84,7 +85,8 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
             'user',
             'address',
             'dob',
-            'gender'
+            'gender',
+            'image'
         ]
 
 class PasswordResetCompleteSerializer(serializers.Serializer):
@@ -114,3 +116,13 @@ class PasswordResetCompleteSerializer(serializers.Serializer):
             raise AuthenticationFailed('The reset link is invalid', 401)
 
         return super().validate(attrs)
+
+
+class LoggedInPasswordResetSerializer(serializers.Serializer):
+    user = serializers.IntegerField()
+    old_password = serializers.CharField(min_length=4, write_only=True)
+    new_password = serializers.CharField(min_length=4, write_only=True)
+    confirm_new_password = serializers.CharField(min_length=4, write_only=True)
+
+    class Meta:
+        fields = ['user', 'old_password', 'new_password', 'confirm_new_password']

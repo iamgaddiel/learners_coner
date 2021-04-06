@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from core.serializers import ProfileUpdateSerializer
 from core.views import (
-    CustomLoginView, PasswordResetConfrimView, PasswordResetView, UserProfileUpdate, UserRegistration,
+    CustomLoginView, LoggedInPasswordResetView, PasswordResetConfrimView, PasswordResetView, UserProfileUpdate, UserRegistration,
     Root,
     PhoneNumberCheckView,
     VerifyEmail,
@@ -30,6 +30,8 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfrimView.as_view(), name="password_reset_confirm"),
     path('password-reset-complete/', PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 
+    # logged in password reset
+    path('user/password-reset/', LoggedInPasswordResetView.as_view(), name="logged_in_password_reset"),
     # drf
     path('auth/', include('rest_framework.urls')),
 

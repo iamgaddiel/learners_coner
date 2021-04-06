@@ -1,14 +1,19 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import NoteViewSet
+from .views import (
+    NoteViewSet,
+    StudentNote
+)
 
 
 router = DefaultRouter()
-router.register('', NoteViewSet)
+router.register('admin', NoteViewSet)
 
 urlpatterns = [
-    # path('user/<phone>/', GetStudentNotes.as_view(),name="user_note_list"),
-    # path('user/<int:pk>/<owner>/', GetStudentNote.as_view(), name="user_note")
+    path('<int:pk>/<int:owner>/', StudentNote.as_view(), name="user_get"),
+    path('<int:owner>/', StudentNote.as_view(),name="user_note_list"),
+    path('<int:pk>/<int:owner>/', StudentNote.as_view(),name="user_note_update"),
+    path('<int:pk>/<int:owner>/', StudentNote.as_view(),name="user_note_delete"),
 ]
 
 urlpatterns += router.urls
