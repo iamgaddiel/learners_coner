@@ -9,6 +9,7 @@ class MockTest(models.Model):
         (2, 2),
         (3, 3),
     ]
+    title = models.CharField(max_length=50, unique=Ture, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     term = models.PositiveIntegerField(default=1, choices=TERMS)
     level = models.ForeignKey(Class, on_delete=models.CASCADE)
