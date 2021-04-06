@@ -124,7 +124,11 @@ class CustomAuthToken(ObtainAuthToken):
 class Root(views.APIView):
     def get(self, *args, **kwargs):
         print(type(settings.SECRET_KEY))
-        return Response({"data": "Working", "domain": self.request.get_host()}, status=200)
+        return Response({
+            "data": "Working", 
+            "domain": self.request.get_host(),
+            "email_host": settings.EMAIL_HOST_USER
+        },status=200)
 
 
 class PhoneNumberCheckView(views.APIView):
