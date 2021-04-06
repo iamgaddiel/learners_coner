@@ -32,6 +32,18 @@ gender (int) : 0 -> Male, 1 -> Female
 
 • /dj-rest-auth/logout/ (GET)
 
+• password-reset/ (POST)
+– email
+
+• password-reset-confirm/<uidb64>/<token>/ (GET)
+    Note: Validates if uidb64 and token are valid
+Return success, message, uidb64, token
+
+• password-reset-complete/ (PATCH)
+– password
+– uidb64
+– token
+
 • /dj-rest-auth/token/verify/ (POST)
 – token
 
