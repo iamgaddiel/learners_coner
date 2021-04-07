@@ -25,7 +25,7 @@ class ListMockTestQuestions(GenericAPIView):
     def get(self, request, pk):
         try:
             mock_test = MockTest.objects.get(pk=pk)
-            mock_test_question = MockTestQuestion.objects.filter(mock_test__pk=mock_test.pk).values()
+            mock_test_question = MockTestQuestion.objects.filter(mock_test__id=mock_test.pk).values()
             return Response({
                 "mock_test_questions": mock_test_question
             }, status=status.HTTP_200_OK)
