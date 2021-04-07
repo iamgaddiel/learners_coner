@@ -158,17 +158,16 @@ Returns a single instance of a note
 – Header {Authorization: <Token userToken>}
 Returns all student note
 
-• note/user/ (POST)
+• note/user/{userId} (POST)
 – Header {Authorization: <Token userToken>}
 – title
 – content
-– owner | userId
 
-• note/{id}/{user} (GET, DELETE)
+• note/user/{noteId}/{userId} (GET, DELETE)
 – Header {Authorization: <Token userToken>}
 Returns a single instance of a user note
 
-• note/{id} (PUT, PATCH)
+• note/user/{noteId}/{userId} (PATCH)
 – Header {Authorization: <Token userToken>}
 – title
 – content

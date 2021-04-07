@@ -1,4 +1,4 @@
-from re import I
+import json
 from django.shortcuts import render
 from rest_framework import permissions, authentication, serializers, status, views, generics, mixins, viewsets
 from rest_framework.response import Response
@@ -18,33 +18,22 @@ class NoteViewSet(viewsets.ModelViewSet):
     ]
 
 
-class StudentNote(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+class StudentNote(mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, generics.GenericAPIView):
     serializer_class = StudentNoteSerializer
     permission_classes = [
         permissions.IsAuthenticated,
     ]
     queryset = Note.objects.all()
-
     
-    def create(self, request, *args, **kwargs):
-        sq = self.serializer_class(data=request.data)
-        if sq.is_valid(raise_exception=True):
-            note = Note.objects.create(**sq.data)
-            return Response(note, status=status.status.HTTP_201_CREATED)
-
-    def list(self, request, *args, **kwargs):
-        try:
-            user = CustomUser.objects.get(id=self.kwargs.get('owner'))
-            notes_qs = Note.objects.filter(owner=user.id)
-            return Response(notes_qs, status=status.HTTP_200_OK)
-        except CustomUser.DoesNotExist:
-            return Response({"error": "owner not found"}, status=status.HTTP_404_NOT_FOUND)
 
     def get(self, request, pk, owner):
         try:
             user = CustomUser.objects.get(id=owner)
-            notes_qs = Note.objects.get(owner=user.id, id=pk)
-            return Response(notes_qs, status=status.HTTP_200_OK)
+            if Note.objects.filter(owner=user.id, id=pk).exists():
+                note_qs = Note.objects.filter(owner=user.id, id=pk).values()[0]
+                return Response(note_qs, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "note not found"}, status=status.HTTP_404_NOT_FOUND)
 
         except CustomUser.DoesNotExist:
             return Response({"error": "owner not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -55,10 +44,10 @@ class StudentNote(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.Ge
         try:
             sq = self.serializer_class(data=request.data)
             if sq.is_valid():
-                user = CustomUser.objects.get(id=owner)
-                notes_qs = Note.objects.get(
-                    owner=user.id, id=pk).update(**sq.data)
-                return Response(sq.data, status=status.HTTP_200_OK)
+                user_instance = CustomUser.objects.get(id=owner)
+                notes_qs = Note.objects.filter(
+                    owner=user_instance.pk, id=pk).update(**sq.data)
+                return Response({"id": pk, **sq.data, "owner_id": user_instance.pk}, status=status.HTTP_200_OK)
 
         except CustomUser.DoesNotExist:
             return Response({"error": "owner not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -67,12 +56,34 @@ class StudentNote(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.Ge
 
     def delete(self, request, pk, owner):
         try:
-            user = CustomUser.objects.get(id=owner)
+            user_instance = CustomUser.objects.get(id=owner)
             notes_qs = Note.objects.get(
-                owner=user.id, id=pk).delete()
-            return Response(notes_qs, status=status.status.HTTP_204_NO_CONTENT)
+                owner=user_instance.pk, id=pk).delete()
+            return Response({"success": "delete successful"}, status=status.HTTP_204_NO_CONTENT)
 
         except CustomUser.DoesNotExist:
             return Response({"error": "owner not found"}, status=status.HTTP_404_NOT_FOUND)
         except Note.DoesNotExist:
             return Response({"error": "note not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class StudentNoteList(generics.GenericAPIView):
+    serializer_class = StudentNoteSerializer
+    def get(self, request, *args, **kwargs):
+        try:
+            user = CustomUser.objects.get(id=self.kwargs.get('owner'))
+            notes_qs = Note.objects.filter(owner=user.id).values()
+            sz = self.serializer_class(notes_qs, many=True)
+            return Response(sz.data, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({"error": "owner not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    def post(self, request, *args, **kwargs):
+        sq = self.serializer_class(data=request.data)
+        try:
+            if sq.is_valid(raise_exception=True):
+                user = CustomUser.objects.get(pk=self.kwargs.get('owner'))
+                note = Note.objects.create(owner=user, **sq.data)
+                return Response({"detail": "Note created successfully"}, status=status.HTTP_201_CREATED)
+        except CustomUser.DoesNotExist:
+            return Response({"error": "user not found"}, status=status.HTTP_201_CREATED)
