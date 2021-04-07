@@ -237,10 +237,13 @@ Returns a single instance of a videos
 – term 
 – level
 
+• mock/mocktest/verbose/{id} (GET, DELETE)
+Returns all MockTestQuestions which belongs to the selected MockTest
+
 ------------ MOCK TEST QUESTION
 • mock/mocktest_question/ (GET)
 – Header {Authorization: <Token userToken>}
-Returns all videos
+Returns all mock test
 
 • mock/mocktest_question/ (POST)
 – Header {Authorization: <Token userToken>}

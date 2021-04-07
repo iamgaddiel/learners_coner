@@ -6,4 +6,4 @@
 # src/**/*.pyc
 .env
 .TODO.md
-# /db.sqlite3
+/db.sqlite3

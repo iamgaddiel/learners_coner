@@ -13,3 +13,9 @@ class MockTestQuestionSerializer(ModelSerializer):
     class Meta:
         model = MockTestQuestion
         fields = '__all__'
+
+class MockTestDetailSerializer(ModelSerializer):
+    class Meta:
+        model = MockTest
+        fields  = '__all__'
+        

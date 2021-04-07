@@ -108,30 +108,6 @@ class UserProfileUpdate(generics.UpdateAPIView):
         return super().perform_update(serializer)
 
 
-class CustomAuthToken(ObtainAuthToken):
-    # return more info when getting user token
-    # THIS VIEW IS NOT IN USE
-    # @params username, password
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(
-            data=request.data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data.get("user")
-        token, created = Token.objects.get_or_create(user=user)
-
-        return Response({
-            'token': token.key,
-            'user_id': user.id,
-            'username': user.username,
-            'full_name': user.fullname,
-            'phone': user.phone,
-            'country': user.country,
-            'level': user.level,
-            'email': user.email,
-            'role': user.role
-        })
-
-
 class Root(views.APIView):
     def get(self, *args, **kwargs):
         print(type(settings.SECRET_KEY))
@@ -180,7 +156,9 @@ class CustomLoginView(views.APIView):
                     'country': user.country,
                     'level': user.level,
                     'email': user.email,
-                    'role': user.role
+                    'role': user.role,
+                    'is_verified': user.is_verified,
+                    'is_subscribed': user.is_subscribed
                 }, status=200)
 
             return Response({
@@ -317,6 +295,7 @@ class PasswordResetCompleteView(generics.GenericAPIView):
 
 class LoggedInPasswordResetView(generics.GenericAPIView):
     serializer_class = LoggedInPasswordResetSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def put(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -326,10 +305,9 @@ class LoggedInPasswordResetView(generics.GenericAPIView):
                 old_password = serializer.data.get('old_password')
                 new_password = serializer.data.get('new_password')
                 confirm_new_password = serializer.data.get('confirm_new_password')
-
                 user = CustomUser.objects.get(id=user_id)
-                if (validate_old_password := check_password(old_password, user.password)):
-                    print(validate_old_password)
+
+                if check_password(old_password, user.password):
                     if new_password == confirm_new_password:
                         user.set_password(new_password)
                         user.save()
