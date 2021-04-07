@@ -31,4 +31,6 @@ class ListMockTestQuestions(GenericAPIView):
                 "mock_test_questions": mock_test_question
             }, status=status.HTTP_200_OK)
         except MockTest.DoesNotExist as e:
-            return Response({"error": "Mock Test was not found"}, status=status.HTTP_200_OK)
+            return Response({"error": "Mock Test was not found"}, status=status.HTTP_404_NOT_FOUND)
+        except MockTestQuestion.DoesNotExist:
+            return Response({"error": "No Mock Test Questions not found"}, status=status.HTTP_404_NOT_FOUND)
