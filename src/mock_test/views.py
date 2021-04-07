@@ -6,6 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .serializer import MockTestDetailSerializer, MockTestQuestionSerializer, MockTestSerializer
 from .models import MockTest, MockTestQuestion
+import json
 
 
 class MockTestViewSet(ModelViewSet):
@@ -27,7 +28,7 @@ class ListMockTestQuestions(GenericAPIView):
             mock_test_question = MockTestQuestion.objects.filter(mock_test__pk=mock_test.id)
             return Response({
                 # "mock_test": mock_test,
-                "mock_test_questions": mock_test_question
+                "mock_test_questions": json.dumps(mock_test_question)
             }, status=status.HTTP_200_OK)
         except MockTest.DoesNotExist as e:
             return Response({"error": "Mock Test was not found"}, status=status.HTTP_200_OK)
