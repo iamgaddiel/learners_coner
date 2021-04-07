@@ -24,7 +24,7 @@ class ListMockTestQuestions(GenericAPIView):
 
     def get(self, request, pk):
         try:
-            mock_test = MockTest.objects.filter(id=pk).values().first()
+            mock_test = MockTest.objects.filter(pk=pk).values().first()
             mock_test_question = MockTestQuestion.objects.filter(mock_test__pk=mock_test.id).values()
             return Response({
                 "mock_test": mock_test,
