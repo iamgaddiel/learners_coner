@@ -25,10 +25,10 @@ class ListMockTestQuestions(GenericAPIView):
     def get(self, request, pk):
         try:
             mock_test = MockTest.objects.get(id=pk)
-            mock_test_question = MockTestQuestion.objects.filter(mock_test__pk=mock_test.id)
+            mock_test_question = MockTestQuestion.objects.filter(mock_test__pk=mock_test.id).values()
             return Response({
                 # "mock_test": mock_test,
-                "mock_test_questions": json.dumps(mock_test_question)
+                "mock_test_questions": mock_test_question
             }, status=status.HTTP_200_OK)
         except MockTest.DoesNotExist as e:
             return Response({"error": "Mock Test was not found"}, status=status.HTTP_200_OK)
