@@ -42,7 +42,7 @@ class Profile(models.Model):
         ('Female', 'Female'),
     ]
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='profile_images %Y/%M/%d', default='user.png')
+    image = models.ImageField(upload_to='profile_images %Y/%M/%d', default='user.png', null=True)
     address: str = models.TextField(default='')
     personal_referral_code: str = models.CharField(
         max_length=20, 
