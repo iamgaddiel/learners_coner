@@ -5,9 +5,13 @@ from core.models import CustomUser
 
 
 class Notification(models.Model):
+    MESSAGE_RECIPIENT = [
+        ('students', 'students'),
+        ('teachers', 'teachers'),
+    ]
     subject = models.CharField(max_length=400)
     message = models.TextField()
-    recipiant = models.ForeignKey()
+    recipient = models.CharField(max_length=9, choices=MESSAGE_RECIPIENT)
     timestamp = models.DateTimeField(auto_now=timezone)
 
     def __str__(self) -> str:
