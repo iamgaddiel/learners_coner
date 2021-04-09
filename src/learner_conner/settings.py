@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'subscription',
     'task',
     'video',
+    'notification'
     # Email verification
     # "verify_email",
 ]

@@ -158,7 +158,12 @@ class CustomLoginView(views.APIView):
                     'email': user.email,
                     'role': user.role,
                     'is_verified': user.is_verified,
-                    'is_subscribed': user.is_subscribed
+                    'is_subscribed': user.is_subscribed,
+                    'image': user.profile.image,
+                    'address': user.profile.address,
+                    'dob': user.profile.dob,
+                    'gender': user.profile.gender,
+                    'personal_referral_code': user.profile.personal_referral_code
                 }, status=200)
 
             return Response({

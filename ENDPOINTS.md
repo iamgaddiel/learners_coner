@@ -41,6 +41,7 @@ Return success, message, uidb64, token
 
 • password-reset-complete/ (PATCH)
 – password
+- password_confirm
 – uidb64
 – token
 
