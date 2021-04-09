@@ -120,10 +120,6 @@ class PasswordResetCompleteSerializer(serializers.Serializer):
             user.set_password(password)
             user.save()
 
-        except Exception as e:
-            # return Response({'error', 'altered token, kindly request a new one'})
-            raise AuthenticationFailed('The reset link is invalid', 401)
-
         except DjangoUnicodeDecodeError as e:
             return Response({'error', 'altered token, kindly request a new one'})
 
