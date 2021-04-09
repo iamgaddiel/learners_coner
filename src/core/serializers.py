@@ -2,6 +2,8 @@ from re import S
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework import validators
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.validators import ValidationError
 
@@ -91,15 +93,17 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
 class PasswordResetCompleteSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=1, max_length=20, write_only=True)
+    password_confirm = serializers.CharField(min_length=1, max_length=20, write_only=True)
     uidb64 = serializers.CharField(min_length=1, write_only=True)
     token = serializers.CharField(min_length=1, write_only=True)
 
     class Meta:
-        fields = ['password', 'uidb64', 'token']
+        fields = ['password', 'confirm_password', 'uidb64', 'token']
     
     def validate(self, attrs):
         try:
             password = attrs.get('password')
+            password_confrim = attrs.get('password_confirm')
             uidb64 = attrs.get('uidb64')
             token = attrs.get('token')
             id = force_str(urlsafe_base64_decode(uidb64))
@@ -107,13 +111,21 @@ class PasswordResetCompleteSerializer(serializers.Serializer):
 
             # check if link has been used before
             if not PasswordResetTokenGenerator().check_token(user, token):
-                raise AuthenticationFailed('The reset link is invalid', 401)
+                raise AuthenticationFailed('invalid token, kindly request a new one', 404)
 
+            # password comparison
+            if password != password_confrim:
+                raise AuthenticationFailed('Passwords do not match', 404)
+            
             user.set_password(password)
             user.save()
 
         except Exception as e:
+            # return Response({'error', 'altered token, kindly request a new one'})
             raise AuthenticationFailed('The reset link is invalid', 401)
+
+        except DjangoUnicodeDecodeError as e:
+            return Response({'error', 'altered token, kindly request a new one'})
 
         return super().validate(attrs)
 

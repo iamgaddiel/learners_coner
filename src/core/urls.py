@@ -2,7 +2,12 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from core.serializers import ProfileUpdateSerializer
 from core.views import (
-    CustomLoginView, LoggedInPasswordResetView, PasswordResetConfrimView, PasswordResetView, UserProfileUpdate, UserRegistration,
+    CustomLoginView, 
+    LoggedInPasswordResetView, 
+    PasswordResetConfrimView, 
+    PasswordResetView,
+    UserProfileUpdate, 
+    UserRegistration,
     Root,
     PhoneNumberCheckView,
     VerifyEmail,
@@ -22,7 +27,10 @@ urlpatterns = [
     path('email/verification/confirm/', VerifyEmailConfirm.as_view(), name="email_verification_confrim"),
     path('classroom/', include('classroom.urls')),
     path('', Root.as_view(), name="root"),
-    path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+
+    # Facebook login
+    path('auth/facebook', include('rest_framework_social_oauth2.urls')),
+    # path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     # path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     
     # password reset urls

@@ -7,7 +7,6 @@ from core.models import CustomUser
 class Note(models.Model):
     title = models.CharField(max_length=100)
     content = RichTextField(blank=True, null=True)
-    # owner = models.CharField(max_length=20, help_text="user phone number", blank=True)
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     timestamp =  models.DateTimeField(auto_now=timezone.now)
 

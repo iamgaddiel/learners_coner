@@ -238,14 +238,15 @@ class PasswordResetView(generics.GenericAPIView):
                 user = CustomUser.objects.get(email=email)
                 uidb64 = urlsafe_base64_encode(str(user.id).encode('utf-8'))
                 token = PasswordResetTokenGenerator().make_token(user)
-                current_site_domain = Util.get_host_domain(request)
+                # current_site_domain = Util.get_host_domain(request)
 
-                relative_url = reverse(
-                    'password_reset_confirm', kwargs={
-                        'uidb64': uidb64, 'token': token
-                    })  # get the relative path to email verification
+                # relative_url = reverse(
+                #     'password_reset_confirm', kwargs={
+                #         'uidb64': uidb64, 'token': token
+                #     })  # get the relative path to email verification
 
-                absolute_url = f"{current_site_domain}{relative_url}"
+                # absolute_url = f"{current_site_domain}{relative_url}"
+                absolute_url = f'https://www.learnerscorner.org/new-password?uidb64={uidb64}&token={token}'
 
                 data = {
                     'message': f"Hi \n use the link below to reset your password \n {absolute_url}",
@@ -278,6 +279,9 @@ class PasswordResetConfrimView(views.APIView):
                 "token": token
             })
 
+            #TODO redirect to front end link /new-password/ on success
+            #TODO 
+
         except DjangoUnicodeDecodeError as e:
             return Response({'error', 'altered token, kindly request a new one'})
 
@@ -307,6 +311,8 @@ class LoggedInPasswordResetView(generics.GenericAPIView):
                 confirm_new_password = serializer.data.get('confirm_new_password')
                 user = CustomUser.objects.get(id=user_id)
 
+
+                # Password comparison
                 if check_password(old_password, user.password):
                     if new_password == confirm_new_password:
                         user.set_password(new_password)

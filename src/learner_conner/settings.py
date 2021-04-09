@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'dj_rest_auth.registration',
 
+    # drf_social-auth-2
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
+
     # dj-rest-auth/social
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
