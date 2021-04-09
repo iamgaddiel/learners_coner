@@ -159,7 +159,7 @@ class CustomLoginView(views.APIView):
                     'role': user.role,
                     'is_verified': user.is_verified,
                     'is_subscribed': user.is_subscribed,
-                    'image': user.profile.image.url,
+                    'image': f'https://learnersconer.pythonanywhere.com{user.profile.image.url}',
                     'address': user.profile.address,
                     'dob': user.profile.dob,
                     'gender': user.profile.gender,
