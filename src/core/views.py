@@ -187,9 +187,9 @@ class VerifyEmail(generics.GenericAPIView):
     # Send email verification
     serializer_class = PasswordResetSerialier
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
-            user = CustomUser.objects.get(email=request.data.get('email'))
+            user = CustomUser.objects.get(email=request.kwargs.get('email'))
             jwt_token = RefreshToken.for_user(
                 user).access_token  # get JWT access token
             current_site_domain = Util.get_host_domain(request)

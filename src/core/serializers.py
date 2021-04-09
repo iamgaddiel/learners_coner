@@ -1,5 +1,5 @@
-from re import S
 from django.db.models import fields
+from django.urls import resolve, reverse
 from rest_framework import serializers
 from rest_framework import validators
 from rest_framework import status
@@ -62,8 +62,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
         # Creates user profile
         user_profile = Profile(user=user)
-        user_profile.personal_referral_code = f'https://learners-corner.netlify.app/signup?ref_code={phone}'
+        user_profile.personal_referral_code = f'https://learnerscorner.org/signup?ref_code={phone}'
         user_profile.save()
+
+        # send email
+        reverse('send_email_verification', kwargs={"email": user.email})
         return user
 
 
