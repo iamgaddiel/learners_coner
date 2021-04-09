@@ -79,8 +79,8 @@ class UserProfileUpdate(generics.UpdateAPIView):
             'level',
             'country',
             'role',
-
         ]
+        
         for data in self.request.data:
             if data in user_update_fields:
                 try:

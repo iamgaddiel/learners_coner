@@ -7,6 +7,7 @@ from core.models import CustomUser
 class Notification(models.Model):
     subject = models.CharField(max_length=400)
     message = models.TextField()
+    recipiant = models.ForeignKey()
     timestamp = models.DateTimeField(auto_now=timezone)
 
     def __str__(self) -> str:
