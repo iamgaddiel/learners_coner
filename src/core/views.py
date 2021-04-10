@@ -80,6 +80,7 @@ class UserProfileUpdate(generics.UpdateAPIView):
             'level',
             'country',
             'role',
+            'image'
         ]
         
         for data in self.request.data:
