@@ -1,5 +1,7 @@
 from django.db.models import fields
 from django.urls import resolve, reverse
+from django.shortcuts import redirect
+from django.conf import settings
 from rest_framework import serializers
 from rest_framework import validators
 from rest_framework import status
@@ -9,11 +11,16 @@ from rest_framework.validators import ValidationError
 
 # Project
 from core.models import CustomUser, Profile
+from core.utils import Util
 
-#password reset
+# password reset
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_bytes, force_str, smart_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+
+# JWT
+from rest_framework_simplejwt.tokens import RefreshToken
+import jwt
 
 # confirm email
 # from verify_email.email_handler import send_verification_email
@@ -22,9 +29,8 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser 
+        model = CustomUser
         fields: list = [
-            # 'username',
             'fullname',
             'phone',
             'country',
@@ -65,9 +71,27 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user_profile.personal_referral_code = f'https://learnerscorner.org/signup?ref_code={phone}'
         user_profile.save()
 
+        try:
+            jwt_token = RefreshToken.for_user(
+                user).access_token  # get JWT access token
+            current_site_domain = Util.get_host_domain(self.context['request'])
+            relative_url = reverse('email_verification_confrim') # get the relative path to email verification
+            absolute_url = f"{current_site_domain}{relative_url}?token={jwt_token}"
+            
+            data = {
+                'message': f"Hi {user.username} use the link below to verify your account \n {absolute_url}",
+                'sender': settings.EMAIL_HOST_USER,
+                'recipient': user.email,
+                'subject': "Email Verification"
+            }
+            Util.send_email(data)
+
+            return user
+        except CustomUser.DoesNotExist:
+            return Response({"data": "user with this email does not exists"}, status=404)
         # send email
-        reverse('send_email_verification', kwargs={"email": user.email})
-        return user
+        # return redirect('send_email_verification', email=user.email)
+        # return reverse('send_email_verification', kwargs={"email": user.email})
 
 
 class PhoneNumberConfirmSerializer(serializers.ModelSerializer):

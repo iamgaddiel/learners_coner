@@ -3,6 +3,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls.base import reverse
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
+from django.shortcuts import redirect
 
 # password reset
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -190,6 +191,7 @@ class VerifyEmail(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         try:
             user = CustomUser.objects.get(email=request.kwargs.get('email'))
+            print(request.kwargs.get('email'), user)
             jwt_token = RefreshToken.for_user(
                 user).access_token  # get JWT access token
             current_site_domain = Util.get_host_domain(request)
@@ -219,7 +221,8 @@ class VerifyEmailConfirm(views.APIView):
             if not (user := CustomUser.objects.get(id=payload.get('user_id'))).is_verified:
                 user.is_verified = True
                 user.save()
-            return Response({"data": "account successfully activated"})
+                return Response({"data": "account successfully activated"})
+            return redirect('https://www.learnerscorner.org/signup/')
         except jwt.ExpiredSignatureError:
             return Response({"error": "activation link has expired"}, status=400)
         except jwt.DecodeError:
