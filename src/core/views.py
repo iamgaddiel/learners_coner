@@ -222,7 +222,7 @@ class VerifyEmailConfirm(views.APIView):
                 user.is_verified = True
                 user.save()
                 # return Response({"data": "account successfully activated"})
-            return redirect('https://www.learnerscorner.org/signup/')
+            return redirect('https://www.learnerscorner.org/login/')
         except jwt.ExpiredSignatureError:
             return Response({"error": "activation link has expired"}, status=400)
         except jwt.DecodeError:
