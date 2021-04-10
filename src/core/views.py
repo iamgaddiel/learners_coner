@@ -221,7 +221,7 @@ class VerifyEmailConfirm(views.APIView):
             if not (user := CustomUser.objects.get(id=payload.get('user_id'))).is_verified:
                 user.is_verified = True
                 user.save()
-                return Response({"data": "account successfully activated"})
+                # return Response({"data": "account successfully activated"})
             return redirect('https://www.learnerscorner.org/signup/')
         except jwt.ExpiredSignatureError:
             return Response({"error": "activation link has expired"}, status=400)
