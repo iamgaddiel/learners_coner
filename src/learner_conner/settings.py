@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     # Apps
     'core',
     'classroom',
-    'backend',
     'lecture',
     'chat',
     'comment',
@@ -75,7 +74,8 @@ INSTALLED_APPS = [
     'subscription',
     'task',
     'video',
-    'notification'
+    'notification',
+    # 'coupons'
     # Email verification
     # "verify_email",
 ]

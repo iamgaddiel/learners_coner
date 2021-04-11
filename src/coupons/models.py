@@ -14,10 +14,10 @@ class School(models.Model):
 
 class Coupons(models.Model):
     coupon_code = models.CharField(max_length=30, unique=True)
-    expires_at = models.DateField(blank=True, null=True)
+    expires_at = models.DateField(blank=True)
     school = models.OneToOneField(School, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f"{self.school.contact_name} - {self.coupon_code} | expires : {self.expires_at}"
+        return f"{self.coupon_code} - {self.school.contact_name}"
 
 # Create your models here.

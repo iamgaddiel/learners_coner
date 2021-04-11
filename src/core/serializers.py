@@ -71,6 +71,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user_profile.personal_referral_code = f'https://learnerscorner.org/signup?ref_code={phone}'
         user_profile.save()
 
+        # send verification email to user
         try:
             jwt_token = RefreshToken.for_user(
                 user).access_token  # get JWT access token
@@ -89,10 +90,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             return user
         except CustomUser.DoesNotExist:
             return Response({"data": "user with this email does not exists"}, status=404)
-        # send email
-        # return redirect('send_email_verification', email=user.email)
-        # return reverse('send_email_verification', kwargs={"email": user.email})
-
+        
 
 class PhoneNumberConfirmSerializer(serializers.ModelSerializer):
     class Meta:

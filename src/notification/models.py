@@ -15,4 +15,11 @@ class Notification(models.Model):
     timestamp = models.DateTimeField(auto_now=timezone)
 
     def __str__(self) -> str:
-        return self.subject
+        return f"{self.subject} - {self.timestamp}"
+
+class UserNotification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    notification = models.ForeignKey(Notification, on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return f"{self.user.username} notification {self.notification.timestamp}"
