@@ -390,3 +390,11 @@ Returns a single instance of a lecture
 – term
 – week
 
+
++++++++++++++++++++++++++++++++++ COUPON ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+• coupon/subscription/ (POST)
+user_id
+coupon
+
+
++++++++++++++++++++++++++++++++++ NOTIFICATION ENDPOINTS +++++++++++++++++++++++++++++++++++++++++

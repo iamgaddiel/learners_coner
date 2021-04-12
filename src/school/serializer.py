@@ -10,3 +10,10 @@ class CouponsSerializer(serializers.ModelSerializer):
 
 class SchoolSerializer(serializers.ModelSerializer):
     pass
+
+class StudentCouponRegistrationSerializer(serializers.Serializer):
+    coupon = serializers.CharField(max_length=10)
+    user = serializers.CharField(max_length=99999)
+
+    class Meta:
+        fields = ['coupon', 'user']
