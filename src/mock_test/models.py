@@ -15,7 +15,7 @@ class MockTest(models.Model):
     level = models.ForeignKey(Class, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f"{self.title} | level: {self.level} | term: {self.term}"
 
 class MockTestQuestion(models.Model):
     CORRECT_OPTIONS = [
