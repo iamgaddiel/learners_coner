@@ -33,4 +33,4 @@ class MockTestQuestion(models.Model):
     d = models.CharField(max_length=400, default="")
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f"{self.mock_test.title} | answer: {self.correct_answer}"
