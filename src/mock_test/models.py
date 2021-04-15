@@ -27,10 +27,11 @@ class MockTestQuestion(models.Model):
     mock_test = models.ForeignKey(MockTest, on_delete=models.CASCADE)
     correct_answer = models.CharField(max_length=1, choices=CORRECT_OPTIONS)
     question = models.CharField(max_length=500, unique=True, blank=True)
+    question_number = models.PositiveIntegerField(default=1)
     a = models.CharField(max_length=400, default="")
     b = models.CharField(max_length=400, default="")
     c = models.CharField(max_length=400, default="")
     d = models.CharField(max_length=400, default="")
 
     def __str__(self) -> str:
-        return f"{self.mock_test.title} | answer: {self.correct_answer}"
+        return f"{self.mock_test.title} | No: {self.question_number} answer: {self.correct_answer}"
