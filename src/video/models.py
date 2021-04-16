@@ -13,4 +13,4 @@ class Video(models.Model):
     term = models.CharField(max_length=3, choices=TERM, default=TERM[0])
 
     def __str__(self) -> str:
-        return f"{self.title} | level: {self.level} | term: {self.term}"
+        return f"{self.title} | level: {self.level.title} | term: {self.term}"

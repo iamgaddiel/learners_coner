@@ -257,7 +257,6 @@ class PasswordResetView(generics.GenericAPIView):
                     'recipient': user.email,
                     'subject': "Password Reset"
                 }
-                print(data['sender'])
                 Util.send_email(data)
                 return Response({
                     "success": "Check mail your we've sent you a link to reset your password, if you don't find it check your spam"
@@ -314,7 +313,6 @@ class LoggedInPasswordResetView(generics.GenericAPIView):
                 new_password = serializer.data.get('new_password')
                 confirm_new_password = serializer.data.get('confirm_new_password')
                 user = CustomUser.objects.get(id=user_id)
-
 
                 # Password comparison
                 if check_password(old_password, user.password):
