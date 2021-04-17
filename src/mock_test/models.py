@@ -9,10 +9,18 @@ class MockTest(models.Model):
         (2, 2),
         (3, 3),
     ]
+    TIME_CHOICES = [
+        ('30', '30'),
+        ('40', '40'),
+        ('45', '45'),
+        ('60', '60'),
+    ]
     title = models.CharField(max_length=50, unique=True, default="")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     term = models.PositiveIntegerField(default=1, choices=TERMS)
     level = models.ForeignKey(Class, on_delete=models.CASCADE)
+    timer = models.CharField(max_length=2, choices=TIME_CHOICES, default="30")
+
 
     def __str__(self) -> str:
         return f"{self.title} | level: {self.level} | term: {self.term}"
@@ -24,16 +32,10 @@ class MockTestQuestion(models.Model):
         ('c', 'c'),
         ('d', 'd'),
     ]
-    TIME_CHOICES = [
-        ('30', '30'),
-        ('45', '45'),
-        ('60', '60'),
-    ]
     mock_test = models.ForeignKey(MockTest, on_delete=models.CASCADE)
     correct_answer = models.CharField(max_length=1, choices=CORRECT_OPTIONS)
     question = models.CharField(max_length=500, unique=True, blank=True)
     question_number = models.PositiveIntegerField(default=1)
-    timer = models.CharField(max_length=2, choices=TIME_CHOICES, default=TIME_CHOICES[0])
     a = models.CharField(max_length=400, default="")
     b = models.CharField(max_length=400, default="")
     c = models.CharField(max_length=400, default="", blank=True)
