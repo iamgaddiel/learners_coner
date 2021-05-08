@@ -31,6 +31,7 @@ urlpatterns = [
 
     # Facebook login
     path('auth/facebook', include('rest_framework_social_oauth2.urls')),
+    path('social-auth/', include('social_django.urls', namespace="social")),
     # path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     # path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     

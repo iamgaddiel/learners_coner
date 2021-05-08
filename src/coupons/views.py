@@ -10,5 +10,5 @@ class SchoolViewset(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
-    queryset = School
+    queryset = School.object.all()
 

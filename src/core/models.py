@@ -28,8 +28,8 @@ class CustomUser(AbstractUser):
     is_subscribed: bool = models.BooleanField(default=False)
     syllable: str = models.CharField(max_length=25, choices=SYLLABLE, default='')
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    # REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManger()
     

@@ -89,6 +89,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware', #CORSHEADERS
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'learner_conner.urls'
@@ -104,6 +105,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -195,8 +198,35 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
     # 'allauth.account.auth_backends.AuthenticationBackend'
 ]
+
+SOCIAL_AUTH_FACEBOOK_KEY = "288815052725771"
+SOCIAL_AUTH_FACEBOOK_SECRET = "7a5b802bdb9ec9b8f5014c7310ef33af"
+# SOCIAL_AUTH_FACEBOOK_KEY = "1137655786718275"
+# SOCIAL_AUTH_FACEBOOK_SECRET = "82fd740fb490541b6fb9958b4b12f999"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+    'fields': 'id, name, email, picture.type(large), link'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+
+# SOCIAL_AUTH_USER_FIELDS = ['email', 'username']
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# SOCIALACCOUNT_AUTO_SIGNUP = True
+# SOCIALACCOUNT_EMAIL_VERIFICATION = False
+# SOCIALACCOUNT_EMAIL_REQUIRED = True
+# SOCIALACCOUNT_QUERY_EMAIL = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 # dj-rest-auth
 SITE_ID = 1
@@ -204,16 +234,13 @@ SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_PASSWORD_REQUIRED = False
+ACCOUNT_PASSWORD_REQUIRED = True
 
 # CORS-HEADERS
 CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Email Config
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
 EMAIL_HOST = 'server39.web-hosting.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

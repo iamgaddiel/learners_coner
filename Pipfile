@@ -19,6 +19,7 @@ djangorestframework-simplejwt = "*"
 drf-pdf = "*"
 django-rest-framework-social-oauth2 = "*"
 shortuuid = "*"
+social-auth-app-django = "*"
 
 [dev-packages]
 

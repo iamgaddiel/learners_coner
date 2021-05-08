@@ -61,6 +61,7 @@ Returns access
     Note: Takes a refresh type JSON web token and returns an access type JSON web token if the refresh
     token is valid. HTTP 401 Unauthorized with {"detail": "Token is invalid or
     expired", "code": "token_not_valid"} in case of a invalid or expired token.
+    
 
 +++++++++++++++++++++++++++++++++ LECTURE ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 
@@ -398,3 +399,8 @@ coupon
 
 
 +++++++++++++++++++++++++++++++++ NOTIFICATION ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+
+
+
++++++++++++++++++++++++++++++++++ FACEBOOK ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
+• social-auth/login/facebook (GET)
