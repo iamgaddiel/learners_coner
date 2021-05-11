@@ -14,7 +14,10 @@ SECRET_KEY = 'r=0m^^*17u)q@-*y3dh45v!wy0sqtbz!3ipzc^uq-!-au8j(*&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '*',
+    'https://learnersconer.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -106,7 +109,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
-                # 'social_django.context_processors.login_redirect',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -216,6 +219,11 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('picture', 'picture'),
     ('link', 'profile_url'),
 ]
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
+SOCIAL_AUTH_LOGIN_URL = 'api/user/login/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 # SOCIAL_AUTH_USER_FIELDS = ['email', 'username']
 # SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
