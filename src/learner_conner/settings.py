@@ -210,15 +210,14 @@ SOCIAL_AUTH_FACEBOOK_KEY = "288815052725771"
 SOCIAL_AUTH_FACEBOOK_SECRET = "7a5b802bdb9ec9b8f5014c7310ef33af"
 # SOCIAL_AUTH_FACEBOOK_KEY = "1137655786718275"
 # SOCIAL_AUTH_FACEBOOK_SECRET = "82fd740fb490541b6fb9958b4b12f999"
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email'] # add this
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
-    'fields': 'id, name, email, picture.type(large), link'
+    'fields': 'id, name, email, picture.type(large),'
 }
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('name', 'name'),
     ('email', 'email'),
     ('picture', 'picture'),
-    ('link', 'profile_url'),
 ]
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
 SOCIAL_AUTH_LOGIN_URL = 'api/user/login/'
