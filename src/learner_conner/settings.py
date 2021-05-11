@@ -223,7 +223,7 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
 SOCIAL_AUTH_LOGIN_URL = 'api/user/login/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'https://www.learnerscorner.org/dashboard/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 # SOCIAL_AUTH_USER_FIELDS = ['email', 'username']

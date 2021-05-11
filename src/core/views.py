@@ -27,6 +27,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.request import QueryDict
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import api_view
 
 from dj_rest_auth.registration.views import RegisterView, RegisterSerializer
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
@@ -326,3 +327,7 @@ class LoggedInPasswordResetView(generics.GenericAPIView):
                     return Response({"error": "invalid old password"}, status=status.HTTP_400_BAD_REQUEST)
             except CustomUser.DoesNotExist as e:
                 return Response({"error": "invalid user"}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def social_login(request):
+    return Response('Gotten to here')

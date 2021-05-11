@@ -13,7 +13,8 @@ from core.views import (
     VerifyEmail,
     VerifyEmailConfirm,
     FacebookLogin,
-    PasswordResetCompleteView
+    PasswordResetCompleteView,
+    social_login
 )
 
 router = DefaultRouter()
@@ -23,6 +24,7 @@ urlpatterns = [
     path('user/login/', CustomLoginView.as_view(), name='custom-login'),
     path('user/phone/confirm/', PhoneNumberCheckView.as_view(), name='phone_confirm'),
     path('user/profile/<int:user>/update/', UserProfileUpdate.as_view(), name="profile_update"),
+    path('user/test/', social_login, name="test_route"),
     # email verification
     path('email/verification/<email>/', VerifyEmail.as_view(), name="send_email_verification"),
     path('email/verification/confirm', VerifyEmailConfirm.as_view(), name="email_verification_confrim"),
