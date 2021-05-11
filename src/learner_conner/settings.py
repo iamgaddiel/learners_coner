@@ -17,7 +17,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '*',
     'https://learnersconer.pythonanywhere.com',
-    'https://www.facebook.com'
+    'https://www.facebook.com',
 ]
 
 
