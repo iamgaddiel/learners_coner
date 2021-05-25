@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
 
     fullname = models.CharField(max_length=50)
     email: str = models.EmailField(unique=True)
-    phone:  str = models.CharField(max_length=20, unique=True)
+    phone:  str = models.CharField(max_length=20, unique=True, blank=True, null=True)
     role: str = models.CharField(max_length=10, choices=ROLE)
     country: str = models.CharField(max_length=25)
     # level: str = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)

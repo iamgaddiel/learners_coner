@@ -27,13 +27,13 @@ class CustomUserManger(BaseUserManager):
             raise ValueError('This user with this details has already been registered', e)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, username, password):
         """
-        Creates and saves a superuser with the given email, date of
-        birth and password.
+        Creates and saves a superuser with the given email, username and password.
         """
         user = self.create_user(
             email,
+            username=username,
             password=password,
         )
         user.is_admin = True
