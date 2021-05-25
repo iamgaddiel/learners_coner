@@ -11,4 +11,4 @@ class Note(models.Model):
     timestamp =  models.DateTimeField(auto_now=timezone.now)
 
     def __str__(self) -> str:
-        return f'{self.owner.username} note '
+        return f'{self.owner.username} {self.title} '

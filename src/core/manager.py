@@ -26,3 +26,16 @@ class CustomUserManger(BaseUserManager):
         except IntegrityError as e:
             raise ValueError('This user with this details has already been registered', e)
         return user
+
+    def create_superuser(self, email, password):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
