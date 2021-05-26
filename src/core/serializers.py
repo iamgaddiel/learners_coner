@@ -37,6 +37,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'level',
             'password',
             'email',
+            'role',
             'referral_code',
         ]
         extra_kwargs = {
@@ -54,6 +55,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         password = validated_data.pop("password")
         phone = validated_data.get('phone')
         fullname = validated_data.get('fullname')
+        user_role = validated_data.get('role')
         user = CustomUser(**validated_data)
         user.set_password(password)
         user.username = f'{fullname}-{phone}'
@@ -64,6 +66,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
             if not (referral_qs := Profile.objects.filter(personal_referral_code=referral_code)).exists():
                 # if not referral_qs.exists():
                 raise serializers.ValidationError("Referral doesn't exists")
+        if user_role == "admin":
+            user.is_superuser = True
+            user.is_staff = True
         user.save()
 
         # Creates user profile
@@ -73,8 +78,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
         # send verification email to user
         try:
-            jwt_token = RefreshToken.for_user(
-                user).access_token  # get JWT access token
+            jwt_token = RefreshToken.for_user(user).access_token  # get JWT access token
             current_site_domain = Util.get_host_domain(self.context['request'])
             relative_url = reverse('email_verification_confrim') # get the relative path to email verification
             absolute_url = f"{current_site_domain}{relative_url}?token={jwt_token}"

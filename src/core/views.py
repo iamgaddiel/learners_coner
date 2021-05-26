@@ -113,7 +113,6 @@ class UserProfileUpdate(generics.UpdateAPIView):
 
 class Root(views.APIView):
     def get(self, *args, **kwargs):
-        print(type(settings.SECRET_KEY))
         return Response({
             "data": "Working",
             "domain": self.request.get_host(),

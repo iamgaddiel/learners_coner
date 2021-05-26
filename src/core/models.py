@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     ROLE : list = [
         ('student', 'student'),
         ('teacher', 'teacher'),
+        ('admin', 'admin'),
     ]
 
     SYLLABLE = [
@@ -20,7 +21,6 @@ class CustomUser(AbstractUser):
     phone:  str = models.CharField(max_length=20, unique=True, blank=True, null=True)
     role: str = models.CharField(max_length=10, choices=ROLE)
     country: str = models.CharField(max_length=25)
-    # level: str = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
     level: str = models.CharField(max_length=4, default='')
     referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="", null=True)
     timestamp: str = models.DateTimeField(auto_now_add=True)
