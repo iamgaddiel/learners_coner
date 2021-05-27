@@ -3,7 +3,9 @@ from django.urls import path, include
 from core.serializers import ProfileUpdateSerializer
 from core.views import (
     CustomLoginView,
-    GetStudent, 
+    GetStudent,
+    GetTeacher,
+    GetTeachers, 
     LoggedInPasswordResetView, 
     PasswordResetConfrimView, 
     PasswordResetView,
@@ -37,8 +39,8 @@ urlpatterns = [
     path('students/get/all/', GetStudents.as_view(), name="get_students"),
     path('student/get/<int:id>/', GetStudent.as_view(), name="get_student"),
     # returngin user details
-    path('teachers/get/all/', GetStudents.as_view(), name="get_teacher"),
-    path('teacher/get/<int:id>/', GetStudent.as_view(), name="get_teacher"),
+    path('teachers/get/all/', GetTeachers.as_view(), name="get_teachers"),
+    path('teacher/get/<int:id>/', GetTeacher.as_view(), name="get_teacher"),
 
     # Facebook login
     path('auth/facebook', include('rest_framework_social_oauth2.urls')),

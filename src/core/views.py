@@ -42,6 +42,7 @@ from core.models import CustomUser, Profile
 from core.serializers import (
     CustomUserSerializer,
     GetStudentsSerializer,
+    GetTeachersSerializer,
     PasswordResetCompleteSerializer,
     PasswordResetSerialier,
     PhoneNumberConfirmSerializer,
@@ -362,19 +363,19 @@ class GetStudent(generics.GenericAPIView):
             return Response({"warning": "no user found with query params"}, status=status.HTTP_400_BAD_REQUEST)
 
 class GetTeachers(generics.GenericAPIView):
-    serializer_class = GetStudentsSerializer
+    serializer_class = GetTeachersSerializer
     permission_classes = [
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
 
     def get(self, request, *args, **kwargs):
-        teachers = CustomUser.objects.filter(role="student")
+        teachers = CustomUser.objects.filter(role="teacher")
         serializer = self.serializer_class(teachers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
             
 class GetTeacher(generics.GenericAPIView):
-    serializer_class = GetStudentsSerializer
+    serializer_class = GetTeachersSerializer
     permission_classes = [
         permissions.IsAuthenticated,
         permissions.IsAdminUser
