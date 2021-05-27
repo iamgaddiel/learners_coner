@@ -2,7 +2,8 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from core.serializers import ProfileUpdateSerializer
 from core.views import (
-    CustomLoginView, 
+    CustomLoginView,
+    GetStudent, 
     LoggedInPasswordResetView, 
     PasswordResetConfrimView, 
     PasswordResetView,
@@ -14,6 +15,7 @@ from core.views import (
     VerifyEmailConfirm,
     FacebookLogin,
     PasswordResetCompleteView,
+    GetStudents,
     social_login
 )
 
@@ -30,6 +32,13 @@ urlpatterns = [
     path('email/verification/confirm', VerifyEmailConfirm.as_view(), name="email_verification_confrim"),
     path('classroom/', include('classroom.urls')),
     path('', Root.as_view(), name="root"),
+
+    # returngin user details
+    path('students/get/all/', GetStudents.as_view(), name="get_students"),
+    path('student/get/<int:id>/', GetStudent.as_view(), name="get_student"),
+    # returngin user details
+    path('teachers/get/all/', GetStudents.as_view(), name="get_teacher"),
+    path('teacher/get/<int:id>/', GetStudent.as_view(), name="get_teacher"),
 
     # Facebook login
     path('auth/facebook', include('rest_framework_social_oauth2.urls')),

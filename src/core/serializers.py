@@ -163,3 +163,24 @@ class LoggedInPasswordResetSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['user', 'old_password', 'new_password', 'confirm_new_password']
+
+
+class GetStudentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'id',
+            'fullname',
+            'level',
+            'is_subscribed'
+        ]
+
+class GetTeachersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'id',
+            'fullname',
+            'phone',
+            'is_subscribed'
+        ]

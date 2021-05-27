@@ -28,6 +28,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.request import QueryDict
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 
 from dj_rest_auth.registration.views import RegisterView, RegisterSerializer
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
@@ -40,6 +41,7 @@ import jwt
 from core.models import CustomUser, Profile
 from core.serializers import (
     CustomUserSerializer,
+    GetStudentsSerializer,
     PasswordResetCompleteSerializer,
     PasswordResetSerialier,
     PhoneNumberConfirmSerializer,
@@ -330,3 +332,58 @@ class LoggedInPasswordResetView(generics.GenericAPIView):
 @api_view(['GET'])
 def social_login(request):
     return Response('Gotten to here')
+
+class GetStudents(generics.GenericAPIView):
+    serializer_class = GetStudentsSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.IsAdminUser
+    ]
+
+    def get(self, request, *args, **kwargs):
+        students = CustomUser.objects.filter(role="student")
+        serializer = self.serializer_class(students, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+            
+class GetStudent(generics.GenericAPIView):
+    serializer_class = GetStudentsSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.IsAdminUser
+    ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            print(kwargs.get('id'), args)
+            student = CustomUser.objects.get(id=kwargs.get('id'), role="student")
+            serializer = self.serializer_class(student)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({"warning": "no user found with query params"}, status=status.HTTP_400_BAD_REQUEST)
+
+class GetTeachers(generics.GenericAPIView):
+    serializer_class = GetStudentsSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.IsAdminUser
+    ]
+
+    def get(self, request, *args, **kwargs):
+        teachers = CustomUser.objects.filter(role="student")
+        serializer = self.serializer_class(teachers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+            
+class GetTeacher(generics.GenericAPIView):
+    serializer_class = GetStudentsSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.IsAdminUser
+    ]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            teacher = CustomUser.objects.get(id=kwargs.get('id'), role="teacher")
+            serializer = self.serializer_class(teacher)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({"warning": "no user found with query params"}, status=status.HTTP_400_BAD_REQUEST)
