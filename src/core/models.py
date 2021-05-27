@@ -22,7 +22,7 @@ class CustomUser(AbstractUser):
     role: str = models.CharField(max_length=10, choices=ROLE)
     country: str = models.CharField(max_length=25)
     level: str = models.CharField(max_length=4, default='')
-    referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="", null=True)
+    referral_code: str = models.CharField(max_length=40, help_text="Enter referral phone number", default="", blank=True)
     timestamp: str = models.DateTimeField(auto_now_add=True)
     is_verified: bool = models.BooleanField(default=False)
     is_subscribed: bool = models.BooleanField(default=False)
