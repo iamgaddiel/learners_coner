@@ -404,3 +404,11 @@ coupon
 
 +++++++++++++++++++++++++++++++++ FACEBOOK ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 • social-auth/login/facebook (GET)
+
+
++++++++++++++++++++++++++++++++++++++ GETTING TEACHERS AND USER DETAILS [ADMIN] +++++++++++++++
+– Header {Authorization: <Token adminToken>}
+• student/get/<int:id>/ # get single user
+• students/get/all/ # returns all students
+• teacher/get/<int:id>/ # get single teacher
+• teachers/get/all/  # returns all teachers

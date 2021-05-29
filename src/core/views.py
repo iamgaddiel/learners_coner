@@ -150,6 +150,7 @@ class CustomLoginView(views.APIView):
             # get user
             user = CustomUser.objects.get(phone=phone)
             if (password_check := check_password(password, user.password)):  # validate password
+                Token.objects.get(user=user).delete()
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({
                     'username': user.username,
