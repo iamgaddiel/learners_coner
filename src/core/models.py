@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from classroom.models import Class
 from django.contrib.auth.models import AbstractUser, User
@@ -16,6 +17,7 @@ class CustomUser(AbstractUser):
         ('W.Africa', 'Learner conner W.Africa')
     ]
 
+    # id = models.UUIDField(editable=False, default=uuid4, primary_key=True)
     fullname = models.CharField(max_length=50)
     email: str = models.EmailField(unique=True)
     phone:  str = models.CharField(max_length=20, unique=True, blank=True, null=True)

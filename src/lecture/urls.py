@@ -11,7 +11,7 @@ router = DefaultRouter()
 router.register('admin', LectureViewSet)
 
 urlpatterns = [
-    path('admin', LectureTest.as_view(), name="lect"),
+    # path('admin', LectureTest.as_view(), name="lect"),
     path('user/detail/<str:level>/<str:subject>/<int:term>/', StudentLecture.as_view(), name="student_lecture"),
 ]
 

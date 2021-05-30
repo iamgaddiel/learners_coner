@@ -4,10 +4,10 @@ from .views import SubscriptionView, SubscriptionViewSet
 
 
 router = DefaultRouter()
-# router.register('admin', SubscriptionViewSet)
+router.register('admin', SubscriptionViewSet)
 
 urlpatterns = [
-    path('admin/', SubscriptionViewSet.as_view()),
+    # path('admin/', SubscriptionViewSet.as_view()),
     path('reg/create/', SubscriptionView.as_view(), name="subscription")
 ]
 
