@@ -385,6 +385,8 @@ class GetTeacher(generics.GenericAPIView):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+    queryset = CustomUser.objects.all()
+
 
     def get(self, request, *args, **kwargs):
         try:
