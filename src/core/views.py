@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import check_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import query
 from django.urls.base import reverse
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
@@ -353,6 +354,7 @@ class GetStudent(generics.GenericAPIView):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+    queryset = CustomUser.objects.all()
 
     def get(self, request, *args, **kwargs):
         try:
@@ -369,6 +371,7 @@ class GetTeachers(generics.GenericAPIView):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+    queryset = CustomUser.objects.all()
 
     def get(self, request, *args, **kwargs):
         teachers = CustomUser.objects.filter(role="teacher")
