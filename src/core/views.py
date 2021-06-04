@@ -342,6 +342,7 @@ class GetStudents(generics.GenericAPIView):
         permissions.IsAuthenticated,
         permissions.IsAdminUser
     ]
+    queryset = CustomUser.objects.all()
 
     def get(self, request, *args, **kwargs):
         students = CustomUser.objects.filter(role="student")
