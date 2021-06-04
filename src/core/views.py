@@ -387,7 +387,6 @@ class GetTeacher(generics.GenericAPIView):
     ]
     queryset = CustomUser.objects.all()
 
-
     def get(self, request, *args, **kwargs):
         try:
             teacher = CustomUser.objects.get(id=kwargs.get('id'), role="teacher")
