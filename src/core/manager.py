@@ -36,6 +36,40 @@ class CustomUserManger(BaseUserManager):
             username=username,
             password=password,
         )
-        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
+    
+    def create_staffuser(self, email, username, password):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            email,
+            username=username,
+            password=password,
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
+
+    def _allow_edit(self, obj=None):
+        if not obj:
+            return True
+        return not (obj.is_staff or obj.is_superuser)
+
+    def has_change_permission(self, request, obj=None):
+        return self._allow_edit(obj)
+
+    def has_delete_permission(self, request, obj=None):
+        return self._allow_edit(obj)
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_view_permission(self, request, obj=None):
+        return True
+
+    def has_module_permission(self, request):
+        return True

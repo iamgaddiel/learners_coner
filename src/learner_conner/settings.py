@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'task',
     'video',
     'notification',
+    'virtual_tour',
     # 'coupons'
     # Email verification
     # "verify_email",

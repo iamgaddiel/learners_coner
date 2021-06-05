@@ -35,10 +35,9 @@ urlpatterns = [
     path('classroom/', include('classroom.urls')),
     path('', Root.as_view(), name="root"),
 
-    # returngin user details
+    # return students and teachers details
     path('students/get/all/', GetStudents.as_view(), name="get_students"),
     path('student/get/<int:id>/', GetStudent.as_view(), name="get_student"),
-    # returngin user details
     path('teachers/get/all/', GetTeachers.as_view(), name="get_teachers"),
     path('teacher/get/<int:id>/', GetTeacher.as_view(), name="get_teacher"),
 
@@ -70,7 +69,8 @@ urlpatterns = [
     path('subscription/', include('subscription.urls')),
     path('classroom/', include('classroom.urls')),
     path('school/', include('school.urls')),
+    path('virtual_tour/', include('virtual_tour.urls')),
     # path('email/verification/', include('email_verification'))
-    path('podcast/', include('podcast.urls')),
+    # path('podcast/', include('podcast.urls')),
 ]
 urlpatterns += router.urls

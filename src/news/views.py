@@ -20,7 +20,7 @@ class StudentRetrieveView(mixins.ListModelMixin, RetrieveAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
 
-class StudentListView(ListAPIView):
+class StudentListView(ListAPIView): 
     permission_classes = [
         permissions.IsAuthenticated
     ]
