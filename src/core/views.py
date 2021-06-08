@@ -182,6 +182,29 @@ class CustomLoginView(views.APIView):
             return Response({
                 'error': 'user does not exits',  # None
             }, status=404)
+        
+        except Token.DoesNotExist:
+            token = Token.objects.create(user=user)
+            return Response({
+                'username': user.username,
+                'token': token.key,
+                'user_id': user.id,
+                'username': user.username,
+                'full_name': user.fullname,
+                'phone': user.phone,
+                'country': user.country,
+                'level': user.level,
+                'email': user.email,
+                'role': user.role,
+                'is_verified': user.is_verified,
+                'is_subscribed': user.is_subscribed,
+                'image': f'https://learnersconer.pythonanywhere.com{user.profile.image.url}',
+                'address': user.profile.address,
+                'dob': user.profile.dob,
+                'gender': user.profile.gender,
+                'personal_referral_code': user.profile.personal_referral_code
+            }, status=200)
+
 
 
 class VerifyEmail(generics.GenericAPIView):
