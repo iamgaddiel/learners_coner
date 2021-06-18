@@ -13,7 +13,7 @@ class School(models.Model):
         return self.contact_name
 
 class Coupons(models.Model):
-    coupon_code = models.CharField(max_length=30, unique=True)
+    coupon_code = models.CharField(max_length=10, unique=True)
     expires_at = models.DateField(blank=True, null=True)
     school = models.OneToOneField(School, on_delete=models.CASCADE)
 
