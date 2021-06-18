@@ -394,7 +394,7 @@ Returns a single instance of a lecture
 
 +++++++++++++++++++++++++++++++++ COUPON ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 • school/coupon/subscription/ (POST)
-user_id
+user
 coupon
 
 

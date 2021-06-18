@@ -32,4 +32,6 @@ class StudentCouponRegistrationView(GenericAPIView):
                 return Response({"error": "User was not found"}, status=status.HTTP_404_NOT_FOUND)
             except Coupons.DoesNotExist:
                 return Response({"error": "School with this coupon code was not found"}, status=status.HTTP_404_NOT_FOUND)
-        
+        else:
+            print(request.data)
+            return Response({'error': 'Invalid parameters sent'}, status=status.HTTP_404_NOT_FOUND)
