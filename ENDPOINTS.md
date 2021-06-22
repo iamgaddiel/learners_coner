@@ -180,22 +180,26 @@ Returns a single instance of a user note
 – content
 
 +++++++++++++++++++++++++++++++++ VIDEOS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
-• video/ (GET)
+• video/list (GET)
 – Header {Authorization: <Token userToken>}
 Returns all videos
 
-• video/ (POST)
+• video/admin/ (GET)
+– Header {Authorization: <Token userToken>}
+Returns all videos
+
+• video/admin/ (POST)
 – Header {Authorization: <Token userToken>}
 – title
 – link
 – level : level id
 – term : 0 -> (1st term), 1 -> (2nd term), 2 -> (3rd term)
 
-• video/{id} (GET, DELETE)
+• video/admin/{id} (GET, DELETE)
 – Header {Authorization: <Token userToken>}
 Returns a single instance of a videos
 
-• video/{id} (PUT, PATCH)
+• video/admin/id} (PUT, PATCH)
 – Header {Authorization: <Token userToken>}
 – title
 – link
@@ -396,6 +400,8 @@ Returns a single instance of a lecture
 • school/coupon/subscription/ (POST)
 user
 coupon
+
+• api/school/admin/   (POST)
 
 
 +++++++++++++++++++++++++++++++++ NOTIFICATION ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
