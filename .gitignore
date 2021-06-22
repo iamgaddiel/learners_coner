@@ -7,4 +7,5 @@
 .env
 .TODO.md
 /src/db.sqlite3
-*/.vscode
+/src/media
+/vscode

@@ -9,7 +9,9 @@ class CouponsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SchoolSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = School
+        fields = '__all__'
 
 class StudentCouponRegistrationSerializer(serializers.Serializer):
     coupon = serializers.CharField(max_length=10)
