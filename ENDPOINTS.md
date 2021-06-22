@@ -124,11 +124,11 @@ Returns a single instance of a news
 
 ++++++USER)+++++++
 
-• news/ (GET)
+• news/user/ (GET)
 – Header {Authorization: <Token userToken>}
 returns all news
 
-• news/{id} (GET)
+• news/user/{id} (GET)
 – Header {Authorization: <Token userToken>}
 returns single news
 

@@ -8,7 +8,7 @@ router = DefaultRouter()
 router.register('admin', NewsViewSet)
 
 urlpatterns = [
-    path('', StudentListView.as_view(), name="news-list"),
-    path('<pk>/', StudentRetrieveView.as_view(), name="news-retrive")
+    path('student/', StudentListView.as_view(), name="news-list"),
+    path('student/<pk>/', StudentRetrieveView.as_view(), name="news-retrive")
 ] 
 urlpatterns += router.urls
