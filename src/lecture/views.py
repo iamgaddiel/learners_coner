@@ -12,7 +12,7 @@ from rest_framework.serializers import Serializer
 
 from classroom.models import Class, Subject
 from .models import Lecture
-from .serializer import LectureSerializer, GetStudentSerializer, CourseSerializer
+from .serializer import LectureSerializer, GetStudentSerializer
 
 
 class LectureTest(views.APIView):
