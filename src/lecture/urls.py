@@ -4,15 +4,18 @@ from django.urls import path
 from .views import (
     LectureTest,
     LectureViewSet,
-    StudentLecture
+    StudentLecture,
+    GetAllLectures,
+    # CourseViewSet
 )
 
 router = DefaultRouter()
 router.register('admin', LectureViewSet)
+# router.register('admin', CourseViewSet)
 
 urlpatterns = [
-    # path('admin', LectureTest.as_view(), name="lect"),
     path('user/detail/<str:level>/<str:subject>/<int:term>/', StudentLecture.as_view(), name="student_lecture"),
+    path('list/', GetAllLectures.as_view(), name="lecture_list"),
 ]
 
 urlpatterns += router.urls
