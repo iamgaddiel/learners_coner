@@ -6,16 +6,20 @@ from .views import (
     LectureViewSet,
     StudentLecture,
     GetAllLectures,
-    # CourseViewSet
+    CourseViewSet,
+    ListCourse,
+    GetCourse,
 )
 
 router = DefaultRouter()
 router.register('admin', LectureViewSet)
-# router.register('admin', CourseViewSet)
+router.register('course/admin', CourseViewSet)
 
 urlpatterns = [
     path('user/detail/<str:level>/<str:subject>/<int:term>/', StudentLecture.as_view(), name="student_lecture"),
     path('list/', GetAllLectures.as_view(), name="lecture_list"),
+    path('course/list/', ListCourse.as_view(), name="course_list"),
+    path('course/get/<int:id>/', GetCourse.as_view(), name="course_get"),
 ]
 
 urlpatterns += router.urls

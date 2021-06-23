@@ -11,8 +11,8 @@ from rest_framework import (
 from rest_framework.serializers import Serializer
 
 from classroom.models import Class, Subject
-from .models import Lecture
-from .serializer import LectureSerializer, GetStudentSerializer
+from .models import Lecture, Course
+from .serializer import LectureSerializer, GetStudentSerializer, CourseSerializer
 
 
 class LectureTest(views.APIView):
@@ -55,27 +55,27 @@ class GetAllLectures(generics.ListAPIView):
 
 
 # ===========================[Courses] =======================
-# class CourseViewSet(viewsets.ModelViewSet):
-#     queryset = Course.objects.all()
-#     serializer_class = CourseSerializer
-#     permission_classes = [
-#         permissions.IsAuthenticated,
-#         permissions.IsAdminUser
-#     ]
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        permissions.IsAdminUser
+    ]
 
 
-# class ListCourse(generics.ListView):
-#     queryset = Course.objects.all()
-#     serializer_class = CourseSerializer
-#     permission_classes = [
-#         permissions.IsAuthenticated,
-#     ]
+class ListCourse(generics.ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
-# class GetCourse(views.Retrive):
-#     queryset = Course.objects.all()
-#     serializer_class = CourseSerializer
-#     permission_classes = [
-#         permissions.IsAuthenticated,
-#     ]
+class GetCourse(generics.RetrieveAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 

@@ -100,6 +100,22 @@ Note: The endpoints are for students
 – term
 Returns level, subject, term, week, title, term
 
+++++++++++++++++++++++++++++++++++ Courses ++++++++++++++++++++++++++++++++++++
+• lecture/course/admin
+– title
+– link
+– poster
+
+• lecture/course/list (GET)
+– title
+– link
+– poster
+
+• lecture/course/get/{id}/ (GET)
+– title
+– link
+– poster
+
 +++++++++++++++++++++++++++++++++ NEWS ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
 
 ++++++ADMIN)+++++++

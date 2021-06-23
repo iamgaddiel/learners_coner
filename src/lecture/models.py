@@ -14,3 +14,11 @@ class Lecture(models.Model):
 
     def __str__(self) -> str:
         return f'{self.title} | {self.level} | term {self.term}'
+
+class Course(models.Model):
+    title = models.CharField(max_length=30, unique=True)
+    link = models.CharField(max_length=400, unique=True)
+    poster = models.ImageField(upload_to="course_posters", default="course.jpg")
+
+    def __str__(self):
+        return self.title
