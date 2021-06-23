@@ -19,7 +19,7 @@ urlpatterns = [
     path('user/detail/<str:level>/<str:subject>/<int:term>/', StudentLecture.as_view(), name="student_lecture"),
     path('list/', GetAllLectures.as_view(), name="lecture_list"),
     path('course/list/', ListCourse.as_view(), name="course_list"),
-    path('course/get/<int:id>/', GetCourse.as_view(), name="course_get"),
+    path('course/get/<int:pk>/', GetCourse.as_view(), name="course_get"),
 ]
 
 urlpatterns += router.urls
