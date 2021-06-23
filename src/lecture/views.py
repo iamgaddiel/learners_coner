@@ -11,7 +11,7 @@ from rest_framework import (
 from rest_framework.serializers import Serializer
 
 from classroom.models import Class, Subject
-from .models import Lecture, Course
+from .models import Lecture
 from .serializer import LectureSerializer, GetStudentSerializer, CourseSerializer
 
 
