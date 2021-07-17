@@ -415,11 +415,9 @@ Returns a single instance of a lecture
 
 
 +++++++++++++++++++++++++++++++++ COUPON ENDPOINTS +++++++++++++++++++++++++++++++++++++++++
-• school/coupon/subscription/ (POST)
-user
-coupon
-
+• api/school/{coupon}/{subscription}/ (POST)
 • api/school/admin/   (POST)
+• api/school/check/coupon/{coupon}/ (GET)  <!-- check if coupon code has expired -->
 
 
 +++++++++++++++++++++++++++++++++ NOTIFICATION ENDPOINTS +++++++++++++++++++++++++++++++++++++++++

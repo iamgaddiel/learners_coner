@@ -19,3 +19,9 @@ class StudentCouponRegistrationSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['coupon', 'user']
+
+class CouponExpirationCheckSerializer(serializers.Serializer):
+    fields = [
+        "user",
+        "coupon",
+    ]

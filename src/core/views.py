@@ -223,6 +223,7 @@ class VerifyEmail(generics.GenericAPIView):
             jwt_token = RefreshToken.for_user(
                 user).access_token  # get JWT access token
             current_site_domain = Util.get_host_domain(request)
+            
             # get the relative path to email verification
             relative_url = reverse('email_verification_confrim')
             absolute_url = f"{current_site_domain}{relative_url}?token={jwt_token}"

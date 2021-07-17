@@ -1,15 +1,21 @@
 from pathlib import Path
 import os
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# Load environment variables
+ENV_PATH = os.path.join(BASE_DIR, 'env.json')
+with open(ENV_PATH, 'r') as data:
+    env = json.loads(data.read())
+    
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r=0m^^*17u)q@-*y3dh45v!wy0sqtbz!3ipzc^uq-!-au8j(*&'
+SECRET_KEY = env.get('APP_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -207,10 +213,8 @@ AUTHENTICATION_BACKENDS = [
     # 'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SOCIAL_AUTH_FACEBOOK_KEY = "288815052725771"
-SOCIAL_AUTH_FACEBOOK_SECRET = "7a5b802bdb9ec9b8f5014c7310ef33af"
-# SOCIAL_AUTH_FACEBOOK_KEY = "1137655786718275"
-# SOCIAL_AUTH_FACEBOOK_SECRET = "82fd740fb490541b6fb9958b4b12f999"
+SOCIAL_AUTH_FACEBOOK_KEY = env.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email'] # add this
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
     'fields': 'id, name, email, picture.type(large),'
@@ -250,10 +254,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Email Config
-EMAIL_HOST = 'server39.web-hosting.com'
+EMAIL_HOST = env.get('EMAIL_HOST')
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
+EMAIL_PORT = env.get('EMAIL_PORT')
 EMAIL_TIMEOUT = 60 * 60
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = "info@learnerscorner.org"
-EMAIL_HOST_PASSWORD = "Learners_2021"
+EMAIL_HOST_USER = env.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env.get('EMAIL_HOST_PASSWORD')

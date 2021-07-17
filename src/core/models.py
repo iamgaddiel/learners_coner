@@ -29,6 +29,7 @@ class CustomUser(AbstractUser):
     is_verified: bool = models.BooleanField(default=False)
     is_subscribed: bool = models.BooleanField(default=False)
     syllable: str = models.CharField(max_length=25, choices=SYLLABLE, default='')
+    coupon = models.CharField(max_length=10, blank=True)
 
     USERNAME_FIELD = 'username'
     # REQUIRED_FIELDS = ['username']
@@ -36,7 +37,7 @@ class CustomUser(AbstractUser):
     objects = CustomUserManger()
     
     def __str__(self) -> str:
-        return f'{self.username}'
+        return self.username
 
 class Profile(models.Model):
     GENDER = [
