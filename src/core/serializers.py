@@ -168,19 +168,9 @@ class LoggedInPasswordResetSerializer(serializers.Serializer):
 class GetStudentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = [
-            'id',
-            'fullname',
-            'level',
-            'is_subscribed'
-        ]
+        exclude = ["password"]
 
 class GetTeachersSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = [
-            'id',
-            'fullname',
-            'phone',
-            'is_subscribed'
-        ]
+        exclude = ["password"]
